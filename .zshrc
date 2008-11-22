@@ -69,7 +69,7 @@ alias -g X0='|xargs -0'
 
 zload compinit
 
-# Don't expand globs in place.
+# Don't expand globs in place, but generate a completion list.
 setopt GLOB_COMPLETE
 
 # Enter menu after second key press.
