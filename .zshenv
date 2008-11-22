@@ -37,10 +37,7 @@ zlog "${TTY:+$TTY }$(print -P %N)"
 
 # Path. {{{
 
-if [[ -d "$HOME/progs/bin" ]]
-then
-  zpath "$HOME/progs/bin"
-fi
+zpath "$HOME/progs/bin"
 
 # }}}
 
