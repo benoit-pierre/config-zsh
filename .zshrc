@@ -1,6 +1,9 @@
 
 zlog "${TTY:+$TTY }$(print -P %N)"
 
+# Utility functions. {{{
+
+# Load and execute a function.
 zload()
 {
   if autoload -U "$1"
@@ -8,6 +11,8 @@ zload()
     "$1"
   fi
 }
+
+# }}}
 
 # History. {{{
 
@@ -57,11 +62,12 @@ alias -g X0='|xargs -0'
 
 # }}}
 
+# Prompt. {{{ 
+
 # Load colors definition.
 zload colors
 
-# Prompt. {{{ 
-
+# Activate expansion inside prompt.
 setopt PROMPT_SUBST
 
 # Colorize completion list.

@@ -1,6 +1,8 @@
 
 umask 077
 
+# Utility functions. {{{
+
 # Logging with timestamp in $ZDOTDIR/log (if $ZDOTDIR/debug exists).
 zlog()
 {
@@ -25,6 +27,8 @@ zexport()
 {
   eval "if [ -z \"$1\" ]; then export $1=\"$2\"; zlog \"$1: $2\"; fi"
 }
+
+# }}}
 
 # Set ZDOTDIR if it wasn't already.
 zexport ZDOTDIR "$HOME/.zsh"
