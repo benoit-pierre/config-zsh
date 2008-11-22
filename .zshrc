@@ -22,10 +22,13 @@ export SAVEHIST=$HISTSIZE
 
 # No dups (kill old).
 setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
 # Don't save command starting with a space.
 setopt HIST_IGNORE_SPACE
 # Clean commands before saving them.
 setopt HIST_REDUCE_BLANKS
+# Incrementally append to history (don't wait for logout).
+setopt INC_APPEND_HISTORY
 
 # }}}
 
