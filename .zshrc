@@ -62,6 +62,32 @@ alias -g X0='|xargs -0'
 
 # }}}
 
+# Completion. {{{
+
+zload compinit
+
+# Don't expand globs in place.
+setopt GLOB_COMPLETE
+
+# Enter menu after second key press.
+setopt AUTO_MENU
+
+# More compact layout.
+setopt LIST_PACKED
+
+# Colorize completion list.
+autoload complist
+zstyle ':completion:*:default' list-colors ''
+
+# Caching.
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$ZDOTDIR/cache"
+
+# Ignore functions for unsupported commands.
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# }}}
+
 # Prompt. {{{ 
 
 # Load colors definition.
@@ -69,10 +95,6 @@ zload colors
 
 # Activate expansion inside prompt.
 setopt PROMPT_SUBST
-
-# Colorize completion list.
-export ZLS_COLOURS=''
-autoload complist
 
 if [[ "$TERM" != "dumb" ]]
 then
