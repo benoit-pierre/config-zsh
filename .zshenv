@@ -31,19 +31,31 @@ zexport ZDOTDIR "$HOME/.zsh"
 
 zlog "${TTY:+$TTY }$(print -P %N)"
 
-# Path
+# Path. {{{
+
 if [[ -d "$HOME/progs/bin" ]]
 then
   zpath "$HOME/progs/bin"
 fi
 
-# Readline.
+# }}}
+
+# Readline. {{{
+
 export INPUTRC="$HOME/.readline/inputrc"
 
-# Screen.
+# }}}
+
+# Screen. {{{
+
 export SCREENRC="$HOME/.screen/rc"
 
-# Grep.
+# }}}
+
+# Grep. {{{
+
 export GREP_OPTIONS='--color'
+
+# }}}
 
 # vim: fdm=marker
