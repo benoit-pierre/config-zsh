@@ -76,7 +76,6 @@ setopt AUTO_MENU
 setopt LIST_PACKED
 
 # Colorize completion list.
-autoload complist
 zstyle ':completion:*:default' list-colors ''
 
 # Caching.
