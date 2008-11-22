@@ -59,4 +59,10 @@ export GREP_OPTIONS='--color'
 
 # }}}
 
+# Python. {{{
+
+export PYTHONPATH="$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages${PYTHONPATH:+:}$PYTHONPATH"
+
+# }}}
+
 # vim: fdm=marker
