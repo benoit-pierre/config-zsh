@@ -75,8 +75,12 @@ setopt GLOB_COMPLETE
 # Enter menu after second key press.
 setopt AUTO_MENU
 
-# More compact layout.
+# More compact layout, auto list on ambiguous completion (even when something
+# was inserted).
 setopt LIST_PACKED
+setopt AUTO_LIST
+setopt NO_LIST_AMBIGUOUS
+export LISTMAX=0
 
 # Colorize completion list.
 zstyle ':completion:*:default' list-colors ''
@@ -87,6 +91,13 @@ zstyle ':completion:*' cache-path "$ZDOTDIR/cache"
 
 # Ignore functions for unsupported commands.
 zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# Better messages.
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
+
+# Better menu mode: auto select, interactive.
+zstyle ':completion:*' menu auto select interactive
 
 # }}}
 
