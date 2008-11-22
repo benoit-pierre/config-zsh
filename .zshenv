@@ -46,4 +46,4 @@ export SCREENRC="$HOME/.screen/rc"
 # Grep.
 export GREP_OPTIONS='--color'
 
-# vim: foldmethod=marker
+# vim: fdm=marker
