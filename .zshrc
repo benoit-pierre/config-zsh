@@ -3,19 +3,6 @@ zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 fpath=("$ZDOTDIR/functions" $fpath)
 
-# Utility functions. {{{
-
-# Load and execute a function.
-zload()
-{
-  if autoload -U "$1"
-  then
-    "$1"
-  fi
-}
-
-# }}}
-
 # History. {{{
 
 export HISTFILE="$ZDOTDIR/history"
