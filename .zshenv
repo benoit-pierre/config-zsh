@@ -59,6 +59,12 @@ export GREP_OPTIONS='--color'
 
 # }}}
 
+# Man. {{{
+
+export MANPAGER='pager --man'
+
+# }}
+
 # Python. {{{
 
 export PYTHONPATH="$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages${PYTHONPATH:+:}$PYTHONPATH"
