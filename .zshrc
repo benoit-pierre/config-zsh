@@ -105,18 +105,11 @@ zstyle ':completion:*' menu auto select interactive
 
 # Prompt. {{{ 
 
-# Load colors definition.
-zload colors
-
 # Activate expansion inside prompt.
 setopt PROMPT_SUBST
 
-if [[ "$TERM" != "dumb" ]]
-then
-  export PROMPT='%b%u%{$fg_no_bold[white]%}%~ %{%(?.$fg_no_bold[green].$fg_no_bold[red])%}%(?.>.!)%{$reset_color%} '
-else
-  export PROMPT='%~ %(?.>.!)%} '
-fi
+zload promptinit
+prompt bpierre
 
 # }}}
 
