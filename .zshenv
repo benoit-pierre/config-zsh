@@ -25,7 +25,7 @@ zpath()
 # Export $1=$2 if not already set.
 zexport()
 {
-  eval "if [ -z \"$1\" ]; then export $1=\"$2\"; zlog \"$1: $2\"; fi"
+  eval "if [[ -z \"\$$1\" ]]; then export $1=\"$2\"; zlog \"export $1=$2\"; fi"
 }
 
 # }}}
