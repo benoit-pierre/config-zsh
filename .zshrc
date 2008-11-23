@@ -1,6 +1,8 @@
 
 zlog "${TTY:+$TTY }$(print -P %N)"
 
+fpath=("$ZDOTDIR/functions" $fpath)
+
 # Utility functions. {{{
 
 # Load and execute a function.
