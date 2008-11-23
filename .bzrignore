@@ -1,3 +1,5 @@
 .zcompdump
 history
 cache/*
+debug
+log
