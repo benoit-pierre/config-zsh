@@ -49,6 +49,13 @@ alias amd='am DVD_DEPENDS=yes'
 alias m='make'
 alias md='m DVD_DEPENDS=yes'
 
+# process
+alias k='kill'
+alias k9='kill -9'
+alias pk='pkill'
+alias pk9='pkill -9'
+alias pg='pgrep'
+
 alias bs='bzr shell'
 alias d='du -xhc --max-depth=1 --exclude="./.?*"'
 alias g='grep'
