@@ -110,6 +110,13 @@ zstyle ':completion:*' menu auto select interactive
 
 # }}}
 
+# Other ZSH options. {{{
+
+# Enable expansion after an =.
+setopt MAGIC_EQUAL_SUBST
+
+# }}}
+
 # Prompt. {{{ 
 
 # Activate expansion inside prompt.
