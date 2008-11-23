@@ -125,4 +125,6 @@ prompt bpierre
 
 # }}}
 
+# zprof
+
 # vim: fdm=marker

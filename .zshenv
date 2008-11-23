@@ -1,4 +1,7 @@
 
+# Profiling.
+# zmodload zsh/zprof
+
 umask 077
 
 # Utility functions. {{{
