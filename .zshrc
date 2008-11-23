@@ -14,6 +14,13 @@ zload recompile_functions
 
 # }}}
 
+# Command line. {{{
+
+# Setup key mapping.
+zload load_kbd || zload set_kbd
+
+# }}}
+
 # History. {{{
 
 export HISTFILE="$ZDOTDIR/history"

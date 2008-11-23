@@ -1,0 +1,47 @@
+
+load_kbd()
+{
+  keys="$ZDOTDIR/keys"
+
+  if [[ ! -r "$keys" ]]
+  then
+    echo 1>&2 "No keys definition file: $keys"
+    return 1
+  fi
+
+  source "$keys" || return 2
+
+  kbd="$ZDOTDIR/kbd/$TERM-$VENDOR-$OSTYPE"
+
+  if [[ ! -r "$kbd" ]]
+  then
+    echo 1>&2 "No keymap definition file: $kbd"
+    return 3
+  fi
+
+  source "$kbd" || return 4
+
+  bindkey -N bpmap viins
+  bindkey -A bpmap main
+
+  for k in ${(k)keymap}
+  do
+    keycode="${key[$k]}"
+
+    if [[ -z "$keycode" ]]
+    then
+      continue
+    fi
+
+    binding=(${(s. .)keymap[$k]})
+    action="$binding[1]"
+    shift binding
+
+    for opt in $binding
+    do
+      eval "bindkey $opt '$keycode' '$action'"
+    done
+  done
+}
+
+# vim: ft=zsh

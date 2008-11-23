@@ -1,0 +1,15 @@
+typeset -g -A key
+
+key[C-r]=''
+key[C-Left]='[1;5D'
+key[Down]='[B'
+key[Backspace]=''
+key[Left]='[D'
+key[Right]='[C'
+key[C-Delete]='[3;5~'
+key[C-Backspace]=''
+key[End]='[4~'
+key[C-Right]='[1;5C'
+key[Up]='[A'
+key[Delete]='[3~'
+key[Home]='[1~'

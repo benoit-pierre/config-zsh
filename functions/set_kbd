@@ -1,0 +1,47 @@
+
+set_kbd()
+{
+  kbd="$ZDOTDIR/kbd/$TERM-$VENDOR-$OSTYPE"
+
+  echo "Setting \`$kbd'"
+  echo
+  while echo -n "Enter key: "; read -r key_val && [ -n "$key_val" ]
+  do
+    old_names=()
+    for key_name in ${key[(I)*]};
+    do
+      if [ "$key_val" = "${key[$key_name]}" ]
+      then
+        echo "Old name: \`$key_name'"
+        old_names=("${old_names[@]}" "$key_name")
+      fi
+    done
+    echo -n "New name: "
+    if read new_name && [ -n "$new_name" ]
+    then
+      for old_name in "${old_names[@]}"
+      do
+        unset "key[$old_name]" >& /dev/null
+      done
+      key[$new_name]="$key_val"
+    fi
+  done
+  echo -n "Write \`$kbd' ? "
+  read -q answer
+
+  [ "$answer" = "y" ] &&
+  {
+    echo "typeset -g -A key"
+    echo
+
+    for key_name in ${key[(I)*]}
+    do
+      echo "key[$key_name]='${key[$key_name]}'"
+    done
+
+  } > "$kbd"
+
+  load_kbd
+}
+
+# vim: ft=zsh
