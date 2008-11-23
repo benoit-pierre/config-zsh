@@ -18,7 +18,7 @@ zpath()
   if [[ -z "${path[(r)$1]}" ]]
   then
     export PATH="$1:$PATH"
-    zlog "PATH: ${PATH}"
+    zlog "export PATH=${PATH}"
   fi
 }
 
@@ -33,7 +33,7 @@ zexport()
 # Set ZDOTDIR if it wasn't already.
 zexport ZDOTDIR "$HOME/.zsh"
 
-zlog "${TTY:+$TTY }$(print -P %N)"
+zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 # Path. {{{
 

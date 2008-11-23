@@ -1,4 +1,4 @@
 
-zlog "${TTY:+$TTY }$(print -P %N)"
+zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 # vim: fdm=marker

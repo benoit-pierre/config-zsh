@@ -1,5 +1,5 @@
 
-zlog "${TTY:+$TTY }$(print -P %N)"
+zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 fpath=("$ZDOTDIR/functions" $fpath)
 
