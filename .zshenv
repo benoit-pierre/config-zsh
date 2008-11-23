@@ -50,6 +50,16 @@ zpath "$HOME/progs/bin"
 
 # }}}
 
+# Recompile ~/.zshenv if needed. {{{
+
+f="$HOME/.zshenv"
+if [[ -r "$f" ]] && [[ ! "$f.zwc" -nt "$f" ]]
+then
+  zcompile "$f"
+fi
+
+# }}}
+
 # Readline. {{{
 
 export INPUTRC="$HOME/.readline/inputrc"

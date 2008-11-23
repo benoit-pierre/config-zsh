@@ -1,0 +1,20 @@
+
+recompile_zdots()
+{
+  typeset -a recompile
+
+  for f in "$ZDOTDIR"/.z{comdump,log{in,out},profile,sh{env,rc}}
+  do
+    if [[ -r "$f" ]] && [[ ! "$f.zwc" -nt "$f" ]]
+    then
+      recompile=($recompile $f)
+    fi
+  done
+
+  for f in $recompile:q
+  do
+    zcompile "$f"
+  done
+}
+
+# vim: ft=zsh

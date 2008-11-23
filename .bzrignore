@@ -3,3 +3,4 @@ history
 cache/*
 debug
 log
+*.zwc

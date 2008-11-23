@@ -1,7 +1,18 @@
 
 zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
-fpath=("$ZDOTDIR/functions" $fpath)
+# Setup fpath. {{{
+
+fpath=("$ZDOTDIR/functions.zwc" "$ZDOTDIR/functions" $fpath)
+
+# }}}
+
+# Recompile outdated .zwc's. {{{
+
+zload recompile_zdots
+zload recompile_functions
+
+# }}}
 
 # History. {{{
 

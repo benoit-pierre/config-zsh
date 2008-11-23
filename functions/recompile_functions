@@ -1,0 +1,15 @@
+
+recompile_functions()
+{
+  zwc="$ZDOTDIR/functions.zwc"
+  for f in "$ZDOTDIR/functions/"*
+  do
+    if [[ ! "$zwc" -nt "$f" ]]
+    then
+      zcompile "$zwc" "$ZDOTDIR/functions/"*
+      break
+    fi
+  done
+}
+
+# vim: ft=zsh
