@@ -81,8 +81,6 @@ alias -g X0='|xargs -0'
 
 # Completion. {{{
 
-zload compinit
-
 # Don't expand globs in place, but generate a completion list.
 setopt GLOB_COMPLETE
 
@@ -97,7 +95,7 @@ setopt NO_LIST_AMBIGUOUS
 export LISTMAX=0
 
 # Colorize completion list.
-zstyle ':completion:*:default' list-colors ''
+zstyle ':completion:*' list-colors ''
 
 # Caching.
 zstyle ':completion:*' use-cache on
@@ -107,11 +105,38 @@ zstyle ':completion:*' cache-path "$ZDOTDIR/cache"
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # Better messages.
-zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
-zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
+zstyle ':completion:*' select-prompt %Scurrent selection at %p%s
+zstyle ':completion:*:warnings' format 'no matches for: %d%b'
+zstyle ':completion:*' list-prompt '%Sat %p%s'
+zstyle ':completion:*' auto-description '%d'
+zstyle ':completion:*' format '%d'
 
-# Better menu mode: auto select, interactive.
-zstyle ':completion:*' menu auto select interactive
+# Use menu mode.
+zstyle ':completion:*' menu select=1
+
+# Error approximation.
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' max-errors 2
+
+# Don't use old system.
+zstyle ':completion:*' use-compctl false
+
+# Don't be verbose.
+zstyle ':completion:*' verbose false
+
+# Sort files by name.
+zstyle ':completion:*' file-sort name
+
+# Avoid completing current directory in some cases.
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' ignore-parents parent pwd ..
+
+# More information for options.
+zstyle ':completion:*' list-suffixes true
+
+# Start completion system.
+autoload -Uz compinit
+compinit
 
 # }}}
 
