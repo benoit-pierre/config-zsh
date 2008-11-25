@@ -96,4 +96,16 @@ fi
 
 # }}}
 
+# Ruby. {{{
+
+if [[ -n =ruby(:q) ]]
+then
+  rubylib="$HOME/progs/lib/ruby"
+  rubysite="$rubylib/site_ruby/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+  rubysitearch="$rubysite/`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
+  export RUBYLIB="$rubysitearch:$rubysite:$rubylib${RUBYLIB:+:$RUBYLIB}"
+fi
+
+# }}}
+
 # vim: fdm=marker
