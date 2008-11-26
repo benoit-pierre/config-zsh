@@ -87,6 +87,12 @@ export MANPAGER='pager --man'
 
 # }}
 
+# pkg-config. {{{
+
+export PKG_CONFIG_PATH="$HOME/progs/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+
+# }}}
+
 # Python. {{{
 
 if [[ -n =python(:q) ]]
