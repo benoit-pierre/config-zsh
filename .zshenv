@@ -15,14 +15,16 @@ zlog()
   fi
 }
 
-# Will prepend $1 to path only if not already present.
+# Will prepend $1 to path (removing existing duplicates).
 zpath()
 {
-  if [[ -z "${path[(r)$1]}" ]]
-  then
-    export PATH="$1:$PATH"
-    zlog "export PATH=${PATH}"
-  fi
+  n="$1"
+  shift
+  eval "
+  typeset -U np
+  np=($@ \${(s|:|)$n})
+  export $n=\"\${(j|:|)np}\"
+"
 }
 
 # Export $1=$2 if not already set.
@@ -49,7 +51,13 @@ zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 # Path. {{{
 
-zpath "$HOME/progs/bin"
+zpath PATH "$HOME/progs/bin"
+
+# }}}
+
+# Library path. {{{
+
+zpath LD_LIBRARY_PATH "$HOME/progs/lib"
 
 # }}}
 
@@ -89,7 +97,7 @@ export MANPAGER='pager --man'
 
 # pkg-config. {{{
 
-export PKG_CONFIG_PATH="$HOME/progs/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 # }}}
 
@@ -97,7 +105,7 @@ export PKG_CONFIG_PATH="$HOME/progs/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG
 
 if [[ -n =python(:q) ]]
 then
-  export PYTHONPATH="$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages${PYTHONPATH:+:$PYTHONPATH}"
+  zpath PYTHONPATH "$HOME/progs/lib/python"
 fi
 
 # }}}
@@ -109,7 +117,7 @@ then
   rubylib="$HOME/progs/lib/ruby"
   rubysite="$rubylib/site_ruby/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
   rubysitearch="$rubysite/`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
-  export RUBYLIB="$rubysitearch:$rubysite:$rubylib${RUBYLIB:+:$RUBYLIB}"
+  zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
 fi
 
 # }}}
