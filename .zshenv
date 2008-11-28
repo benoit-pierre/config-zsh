@@ -105,7 +105,7 @@ zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 if [[ -n =python(:q) ]]
 then
-  zpath PYTHONPATH "$HOME/progs/lib/python"
+  zpath PYTHONPATH "$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages"
 fi
 
 # }}}
