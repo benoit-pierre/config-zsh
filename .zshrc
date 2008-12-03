@@ -19,6 +19,9 @@ zload recompile_functions
 # Setup key mapping.
 zload load_kbd || zload set_kbd
 
+# Allow comments inside command line.
+setopt INTERACTIVE_COMMENTS
+
 # }}}
 
 # History. {{{
