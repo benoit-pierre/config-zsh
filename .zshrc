@@ -79,6 +79,7 @@ alias -g S='|sort'
 alias -g T='|tail'
 alias -g WL='|wc -l'
 alias -g X0='|xargs -0'
+alias -g FX0='-print0|xargs -0'
 
 # }}}
 
