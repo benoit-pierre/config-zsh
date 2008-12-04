@@ -82,10 +82,14 @@ alias -g X0='|xargs -0'
 
 # }}}
 
-# Completion. {{{
+# Expansion and globbing. {{{
 
 # Don't expand globs in place, but generate a completion list.
 setopt GLOB_COMPLETE
+
+# }}}
+
+# Completion. {{{
 
 # Enter menu after second key press.
 setopt AUTO_MENU
