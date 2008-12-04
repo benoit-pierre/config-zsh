@@ -87,6 +87,10 @@ alias -g X0='|xargs -0'
 # Don't expand globs in place, but generate a completion list.
 setopt GLOB_COMPLETE
 
+# Expand word{21daz} like word{1,2,a,d,z} to:
+# word1 word2 worda wordd wordz
+setopt BRACE_CCL
+
 # }}}
 
 # Completion. {{{
