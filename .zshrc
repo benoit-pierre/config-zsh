@@ -139,6 +139,10 @@ zstyle ':completion:*' use-compctl false
 # Don't be verbose.
 zstyle ':completion:*' verbose false
 
+# Except when completing for the cd builtin (needed for completion usable
+# completion off "cd ±x").
+zstyle ':completion:*:*:cd:*' verbose true
+
 # Sort files by name.
 zstyle ':completion:*' file-sort name
 
@@ -159,6 +163,12 @@ compinit
 
 # Enable expansion after an =.
 setopt MAGIC_EQUAL_SUBST
+
+# Make cd push the old directory onto the directory stack.
+setopt AUTO_PUSHD
+
+# Don't push multiple copies of the same directory onto the directory stack.
+setopt PUSHD_IGNORE_DUPS
 
 # }}}
 
