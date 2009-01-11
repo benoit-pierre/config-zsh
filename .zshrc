@@ -147,6 +147,11 @@ zstyle ':completion:*' verbose false
 # completion off "cd ±x").
 zstyle ':completion:*:*:cd:*' verbose true
 
+# Complete process IDs with menu selection and be verbose.
+zstyle ':completion:*:*:kill:*' verbose true
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+
 # Sort files by name.
 zstyle ':completion:*' file-sort name
 
