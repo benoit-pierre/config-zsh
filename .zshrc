@@ -133,6 +133,10 @@ zstyle ':completion:*' menu select=1
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' max-errors 2
 
+# Prevent CVS files/directories from being completed.
+zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
+
 # Don't use old system.
 zstyle ':completion:*' use-compctl false
 
