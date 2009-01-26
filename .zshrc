@@ -19,6 +19,12 @@ zload recompile_functions
 # Setup key mapping.
 zload load_kbd || zload set_kbd
 
+# Quick binding to kill current job.
+bindkey '\egl' get-line
+bindkey '\epl' push-line
+bindkey '\epi' push-input
+bindkey -s '^k' '\epl\epikill -9\ %%\n\egl'
+
 # Allow comments inside command line.
 setopt INTERACTIVE_COMMENTS
 
