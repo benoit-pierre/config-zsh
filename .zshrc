@@ -129,9 +129,11 @@ zstyle ':completion:*' format '%d'
 # Use menu mode.
 zstyle ':completion:*' menu select=1
 
-# Error approximation.
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle ':completion:*' max-errors 2
+# Add all matches to completion list, try regular completion, then from both
+# end, and finally try correction.
+zstyle ':completion:*' completer _expand _complete _complete:bothends _correct
+zstyle ':completion:*:bothends:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*' 'r:|[._-]=* r:|=*'
+
 
 # Prevent CVS files/directories from being completed.
 zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
