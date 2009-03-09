@@ -93,6 +93,10 @@ export GREP_OPTIONS='--color'
 
 export MANPAGER='pager --man'
 
+typeset -U manpath
+manpath=("$HOME/progs/share/man" ${(s|:|)$(manpath -q)})
+export MANPATH="${(j|:|)manpath}"
+
 # }}
 
 # pkg-config. {{{
