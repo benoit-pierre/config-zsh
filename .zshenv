@@ -122,6 +122,8 @@ then
   rubysite="$rubylib/site_ruby/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
   rubysitearch="$rubysite/`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
   zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
+  rubygems="/var/lib/gems/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+  zpath PATH "$rubygems/bin"
 fi
 
 # }}}
