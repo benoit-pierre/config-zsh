@@ -99,6 +99,12 @@ export MANPATH="${(j|:|)manpath}"
 
 # }}
 
+# Info. {{{
+
+zpath INFOPATH "$HOME/progs/share/info"
+
+# }}
+
 # pkg-config. {{{
 
 zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
