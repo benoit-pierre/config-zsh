@@ -187,6 +187,9 @@ setopt AUTO_PUSHD
 # Don't push multiple copies of the same directory onto the directory stack.
 setopt PUSHD_IGNORE_DUPS
 
+# Allow a ' inside '' by doubling it.
+setopt RC_QUOTES
+
 # }}}
 
 # Prompt. {{{ 
