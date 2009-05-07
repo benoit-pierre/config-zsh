@@ -12,9 +12,20 @@ EOF
 prompt_bpierre_setup () {
 
 if [[ "$TERM" != "dumb" ]]; then
-  PS1="%b%u%F{white}%~ %(?.%F{green}>.%F{red}!)%f "
+
+  autoload -U is-at-least
+
+  if is-at-least 4.3.9
+  then
+    PS1="%b%u%F{white}%~ %(?.%F{green}>.%F{red}!)%f "
+  else
+    PS1='%b%u%{$fg_no_bold[white]%}%~ %{%(?.$fg_no_bold[green].$fg_no_bold[red])%}%(?.>.!)%{$reset_color%} '
+  fi
+
 else
+
   PS1='%~ %(?.>.!) '
+
 fi
 
 }
