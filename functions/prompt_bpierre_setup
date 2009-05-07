@@ -12,12 +12,9 @@ EOF
 prompt_bpierre_setup () {
 
 if [[ "$TERM" != "dumb" ]]; then
-  # export PROMPT='%B%(?..[%?] )%b%n@%U%m%u> '
-  # export RPROMPT="%{$fg_no_bold[${1:-green}]%}%~%{$reset_color%}"
-  export PROMPT='%b%u%{$fg_no_bold[white]%}%~ %{%(?.$fg_no_bold[green].$fg_no_bold[red])%}%(?.>.!)%{$reset_color%} '
+  PS1="%b%u%F{white}%~ %(?.%F{green}>.%F{red}!)%f "
 else
-  # export PROMPT="%(?..[%?] )%n@%m:%~> "
-  export PROMPT='%~ %(?.>.!)%} '
+  PS1='%~ %(?.>.!) '
 fi
 
 }
