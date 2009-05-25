@@ -118,23 +118,62 @@ zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 # Python. {{{
 
-if [[ -n =python(:q) ]]
+python==python
+
+if [[ -n "$python" ]]
 then
-  zpath PYTHONPATH "$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages"
+  pythonenv="$ZDOTDIR/env/python"
+  if [[ ! -r "$pythonenv" || "$pythonenv" -ot "$python" ]]
+  then
+    pythonlib="$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages"
+
+    {
+      echo pythonlib=\'$pythonlib\'
+
+    } > "$pythonenv"
+
+    zcompile "$pythonenv"
+
+  fi
+
+  . "$pythonenv"
+
+  zpath PYTHONPATH "$pythonlib"
 fi
 
 # }}}
 
 # Ruby. {{{
 
-if [[ -n =ruby(:q) ]]
+ruby==ruby
+
+if [[ -n "$ruby" ]]
 then
-  rubylib="$HOME/progs/lib/ruby"
-  rubysite="$rubylib/site_ruby/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
-  rubysitearch="$rubysite/`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
+  rubyenv="$ZDOTDIR/env/ruby"
+  if [[ ! -r "$rubyenv" || "$rubyenv" -ot "$ruby" ]]
+  then
+    rubylib="$HOME/progs/lib/ruby"
+    rubysite="$rubylib/site_ruby/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+    rubysitearch="$rubysite/`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
+    rubygems="/var/lib/gems/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+
+    {
+      echo rubylib=\'$rubylib\'
+      echo rubysite=\'$rubysite\'
+      echo rubysitearch=\'$rubysitearch\'
+      echo rubygems=\'$rubygems\'
+
+    } > "$rubyenv"
+
+    zcompile "$rubyenv"
+
+  fi
+
+  . "$rubyenv"
+
   zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
-  rubygems="/var/lib/gems/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
   zpath PATH "$rubygems/bin"
+  export RUBYOPT=rubygems
 fi
 
 # }}}
