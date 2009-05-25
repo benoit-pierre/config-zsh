@@ -140,7 +140,6 @@ zstyle ':completion:*' menu select=1
 zstyle ':completion:*' completer _expand _complete _complete:bothends _correct
 zstyle ':completion:*:bothends:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*' 'r:|[._-]=* r:|=*'
 
-
 # Prevent CVS files/directories from being completed.
 zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
 zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
@@ -171,8 +170,7 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*' list-suffixes true
 
 # Start completion system.
-autoload -Uz compinit
-compinit
+zload compinit
 
 # }}}
 
@@ -197,7 +195,10 @@ setopt RC_QUOTES
 # Activate expansion inside prompt.
 setopt PROMPT_SUBST
 
+# Start prompt system.
 zload promptinit
+
+# Prompt theme.
 prompt bpierre
 
 # }}}
