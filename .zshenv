@@ -7,13 +7,12 @@ umask 077
 # Utility functions. {{{
 
 # Logging with timestamp in $ZDOTDIR/log (if $ZDOTDIR/debug exists).
-zlog()
-{
-  if [[ -r "$ZDOTDIR/debug" ]]
-  then
-    echo "$(date --rfc-3339=sec) $@" >> "$ZDOTDIR/log"
-  fi
-}
+if [[ -r "$ZDOTDIR/debug" ]]
+then
+  zlog() { echo "$(date --rfc-3339=sec) $@" >> "$ZDOTDIR/log" }
+else
+  zlog() {}
+fi
 
 # Will prepend $1 to path (removing existing duplicates).
 zpath()
