@@ -13,6 +13,7 @@ recompile_zdots()
 
   for f in $recompile:q
   do
+    zlog "zcompile $f"
     zcompile "$f"
   done
 }
