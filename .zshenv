@@ -63,7 +63,7 @@ zpath LD_LIBRARY_PATH "$HOME/progs/lib"
 # Recompile ~/.zshenv if needed. {{{
 
 f="$HOME/.zshenv"
-if [[ -r "$f" ]] && [[ ! "$f.zwc" -nt "$f" ]]
+if [[ -r "$f" && ! "$f.zwc" -nt "$f" ]]
 then
   zcompile "$f"
 fi
