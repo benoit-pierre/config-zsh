@@ -4,3 +4,5 @@ cache/*
 debug
 log
 *.zwc
+env/python
+env/ruby
