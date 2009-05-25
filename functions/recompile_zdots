@@ -5,7 +5,7 @@ recompile_zdots()
 
   for f in "$ZDOTDIR"/.z{comdump,log{in,out},profile,sh{env,rc}}
   do
-    if [[ -r "$f" ]] && [[ ! "$f.zwc" -nt "$f" ]]
+    if [[ -r "$f" && ! "$f.zwc" -nt "$f" ]]
     then
       recompile=($recompile $f)
     fi
