@@ -1,4 +1,5 @@
-prompt_bpierre_help () {
+prompt_bpierre_help()
+{
   cat <<'EOF'
 Not much to configure I'm afraid... Just:
 
@@ -9,25 +10,25 @@ to use it.
 EOF
 }
 
-prompt_bpierre_setup () {
-
-if [[ "$TERM" != "dumb" ]]; then
-
-  autoload -U is-at-least
-
-  if is-at-least 4.3.9
+prompt_bpierre_setup()
+{
+  if [[ "$TERM" != "dumb" ]]
   then
-    PS1="%b%u%F{white}%~ %(?.%F{green}>.%F{red}!)%f "
+
+    autoload -U is-at-least
+
+    if is-at-least 4.3.9
+    then
+      PS1="%b%u%F{white}%~ %(?.%F{green}>.%F{red}!)%f "
+    else
+      PS1='%b%u%{$fg_no_bold[white]%}%~ %{%(?.$fg_no_bold[green].$fg_no_bold[red])%}%(?.>.!)%{$reset_color%} '
+    fi
+
   else
-    PS1='%b%u%{$fg_no_bold[white]%}%~ %{%(?.$fg_no_bold[green].$fg_no_bold[red])%}%(?.>.!)%{$reset_color%} '
+
+    PS1='%~ %(?.>.!) '
+
   fi
-
-else
-
-  PS1='%~ %(?.>.!) '
-
-fi
-
 }
 
 prompt_bpierre_setup "$@"
