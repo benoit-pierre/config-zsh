@@ -70,6 +70,12 @@ fi
 
 # }}}
 
+# Editor. {{{
+
+export EDITOR='vim'
+
+# }}}
+
 # Readline. {{{
 
 export INPUTRC="$HOME/.readline/inputrc"
