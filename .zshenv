@@ -56,7 +56,7 @@ export LC_ALL='en_US.UTF-8'
 
 # Path. {{{
 
-zpath PATH "$HOME/progs/bin"
+zpath PATH "$HOME/progs"/{sbin,bin}
 
 # }}}
 
