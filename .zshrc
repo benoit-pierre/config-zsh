@@ -92,6 +92,21 @@ alias -g FX0='-print0|xargs -0'
 
 # }}}
 
+# Useful functions. {{{
+
+# launch make inside VIM
+vmake()
+{
+  cmd="VMake"
+  for arg in "$@"
+  do
+    cmd+=" $arg:q"
+  done
+  vim +"$cmd"
+}
+
+# }}}
+
 # Expansion and globbing. {{{
 
 # Don't expand globs in place, but generate a completion list.
