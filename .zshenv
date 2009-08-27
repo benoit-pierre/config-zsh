@@ -184,9 +184,11 @@ fi
 
 # }}}
 
-# Sup.
+# Sup. {{{
 
-# Use xapian for index.
+# Switch to Xapian index.
 export SUP_INDEX=xapian
+
+# }}}
 
 # vim: fdm=marker
