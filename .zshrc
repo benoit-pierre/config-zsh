@@ -9,15 +9,19 @@ fpath=("$ZDOTDIR/functions.zwc" "$ZDOTDIR/functions" $fpath)
 
 # Recompile outdated .zwc's. {{{
 
-zload recompile_zdots
-zload recompile_functions
+autoload recompile_zdots && recompile_zdots
+autoload recompile_functions && recompile_functions
 
 # }}}
 
 # Command line. {{{
 
 # Setup key mapping.
-zload load_kbd || zload set_kbd
+autoload load_kbd set_kbd &&
+if ! load_kbd
+then
+  set_kbd
+fi
 
 # Quick binding to kill current job.
 bindkey '\egl' get-line
@@ -184,9 +188,6 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 # More information for options.
 zstyle ':completion:*' list-suffixes true
 
-# Start completion system.
-zload compinit
-
 # }}}
 
 # Other ZSH options. {{{
@@ -211,7 +212,7 @@ setopt RC_QUOTES
 setopt PROMPT_SUBST
 
 # Start prompt system.
-zload promptinit
+autoload promptinit && promptinit
 
 # Prompt theme.
 prompt bpierre

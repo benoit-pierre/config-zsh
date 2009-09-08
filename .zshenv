@@ -41,15 +41,6 @@ zexport()
   eval "if [[ -z \"\$$1\" ]]; then export $1=\"$2\"; zlog \"export $1=$2\"; fi"
 }
 
-# Load and execute a function.
-zload()
-{
-  if autoload -U "$1"
-  then
-    "$1"
-  fi
-}
-
 # }}}
 
 zlog "source $(print -P %N)${TTY:+ [$TTY]}"
