@@ -1,4 +1,10 @@
 
+# Set ZDOTDIR if it wasn't already.
+if [[ -z "$ZDOTDIR" ]]
+then
+  export ZDOTDIR="$HOME/.zsh"
+fi
+
 # Profiling.
 # zmodload zsh/zprof
 
@@ -42,9 +48,6 @@ zload()
 }
 
 # }}}
-
-# Set ZDOTDIR if it wasn't already.
-zexport ZDOTDIR "$HOME/.zsh"
 
 zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
