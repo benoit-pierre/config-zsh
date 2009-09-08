@@ -218,6 +218,9 @@ prompt bpierre
 
 # }}}
 
-# zprof
+if [[ -r "$ZDOTDIR/profile" ]]
+then
+  zprof
+fi
 
 # vim: fdm=marker

@@ -1,8 +1,9 @@
-.zcompdump
-history
-cache/*
-debug
-log
 *.zwc
-env/python
-env/ruby
+./.zcompdump
+./cache/*
+./debug
+./env/python
+./env/ruby
+./history
+./log
+./profile

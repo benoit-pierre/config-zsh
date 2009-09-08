@@ -6,7 +6,10 @@ then
 fi
 
 # Profiling.
-# zmodload zsh/zprof
+if [[ -r "$ZDOTDIR/profile" ]]
+then
+  zmodload zsh/zprof
+fi
 
 umask 077
 
