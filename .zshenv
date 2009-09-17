@@ -11,6 +11,12 @@ then
   zmodload zsh/zprof
 fi
 
+# Setup fpath. {{{
+
+fpath=("$ZDOTDIR/functions" $fpath)
+
+# }}}
+
 umask 077
 
 # Utility functions. {{{
