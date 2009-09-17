@@ -16,6 +16,12 @@ autoload recompile_functions && recompile_functions
 
 # Command line. {{{
 
+# Faster escape...
+export KEYTIMEOUT=1
+
+# Clean up mappings.
+bindkey -d
+
 # Setup key mapping.
 autoload load_kbd set_kbd &&
 if ! load_kbd
