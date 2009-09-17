@@ -1,0 +1,10 @@
+typeset -g -A key
+
+key[Down]='[B'
+key[C-r]=''
+key[Left]='[D'
+key[Right]='[C'
+key[End]='[4~'
+key[Up]='[A'
+key[Delete]='[3~'
+key[Home]='[1~'
