@@ -111,6 +111,12 @@ vmake()
 
 # }}}
 
+# SSH/GPG agents. {{{
+
+ssh-gpg-agents
+
+# }}}
+
 # Expansion and globbing. {{{
 
 # Don't expand globs in place, but generate a completion list.

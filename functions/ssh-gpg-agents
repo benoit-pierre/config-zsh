@@ -1,0 +1,34 @@
+# SSH/GPG agents handling.
+
+ssh-gpg-agents()
+{
+  if which keychain &>/dev/null
+  then
+    agents=()
+    [[ -f "$HOME/.ssh/noagent" ]] || agents+='ssh'
+    [[ -f "$HOME/.gnupg/noagent" ]] || agents+='gpg'
+    keychain --agents "${(j|,|)agents}" "$@"
+    code=$?
+    [[ -n "${agents[(ke)gpg]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
+    [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
+    return $code
+  else
+    echo 1>&2 'Keychain is not installed! SSH/GPG agents handling disabled.'
+    return 255
+  fi
+}
+
+ssh-add()
+{
+  if [[ -z "$SSH_AGENT_PID" && -z "$SSH_AUTH_SOCK" ]]
+  then
+    ssh-gpg-agents
+  fi
+  if [[ 0 -eq "$#" ]]
+  then
+    command ssh-add -l | grep " $HOME/.ssh/id\(_rsa\|_dsa\|entity\) " && return 0
+  fi
+  command ssh-add "$@"
+}
+
+# vim: ft=zsh
