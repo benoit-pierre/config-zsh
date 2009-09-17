@@ -3,7 +3,7 @@ zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 # Setup fpath. {{{
 
-fpath=("$ZDOTDIR/functions.zwc" "$ZDOTDIR/functions" $fpath)
+fpath=("$ZDOTDIR/functions" $fpath)
 
 # }}}
 

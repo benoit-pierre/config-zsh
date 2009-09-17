@@ -1,15 +1,23 @@
 
 recompile_functions()
 {
+  # Recompile all functions in one zwc file.
   zwc="$ZDOTDIR/functions.zwc"
   for f in "$ZDOTDIR/functions/"*
   do
     if [[ ! "$zwc" -nt "$f" ]]
     then
+      zlog "zcompile $zwc"
       zcompile "$zwc" "$ZDOTDIR/functions/"*
       break
     fi
   done
+
+  # Now that zwc is up-to-date, update fpath.
+  fpath=("$ZDOTDIR/functions.zwc" $fpath)
+
+  # Mark all functions has autoloaded.
+  autoload -w "$ZDOTDIR/functions.zwc"
 }
 
 # vim: ft=zsh
