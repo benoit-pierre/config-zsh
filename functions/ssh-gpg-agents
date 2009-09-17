@@ -9,8 +9,8 @@ ssh-gpg-agents()
     [[ -f "$HOME/.gnupg/noagent" ]] || agents+='gpg'
     keychain --agents "${(j|,|)agents}" "$@"
     code=$?
-    [[ -n "${agents[(ke)gpg]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
-    [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
+    [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
+    [[ -n "${agents[(ke)gpg]}" && -f "$HOME/.keychain/$HOST-sh-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
     return $code
   else
     echo 1>&2 'Keychain is not installed! SSH/GPG agents handling disabled.'
