@@ -146,6 +146,9 @@ export LISTMAX=0
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-colors "$LS_COLORS"
 
+# Group completion list by category.
+zstyle ':completion:*' group-name ''
+
 # Caching.
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$ZDOTDIR/cache"
