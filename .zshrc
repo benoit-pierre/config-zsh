@@ -148,6 +148,9 @@ setopt AUTO_LIST
 setopt NO_LIST_AMBIGUOUS
 export LISTMAX=0
 
+# Load completion list module.
+zmodload zsh/complist
+
 # Colorize completion list.
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-colors "$LS_COLORS"
@@ -171,6 +174,9 @@ zstyle ':completion:*' format "${bold_color}%d:${reset_color}"
 
 # Use menu mode.
 zstyle ':completion:*' menu select=1
+
+# Easy selection of more than one entry during menu completion.
+bindkey -M menuselect ' ' accept-and-hold
 
 # Add all matches to completion list, try regular completion, then from both
 # end, and finally try correction.
