@@ -184,8 +184,8 @@ zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
 # Don't use old system.
 zstyle ':completion:*' use-compctl false
 
-# Don't be verbose.
-zstyle ':completion:*' verbose false
+# Be verbose.
+zstyle ':completion:*' verbose true
 
 # Except when completing for the cd builtin (needed for completion usable
 # completion off "cd ±x").
