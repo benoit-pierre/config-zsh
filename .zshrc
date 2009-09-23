@@ -214,6 +214,9 @@ then
 fi
 zstyle ':completion:*:(ssh|scp|rsync):*:users' ignored-patterns nobody $(<"$iusers")
 
+# Split man pages by section.
+zstyle ':completion:*:man:*' separate-sections true
+
 # }}}
 
 # Other ZSH options. {{{
