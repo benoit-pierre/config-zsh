@@ -197,6 +197,14 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 # More information for options.
 zstyle ':completion:*' list-suffixes true
 
+# Don't complete "system" users (low UID + nobody) for SSH/SCP/rsync.
+iusers="$ZDOTDIR/cache/ignored-users"
+if [[ ! -f "$iusers" ]]
+then
+  getent passwd | sed -n '/^[[:alnum:]-]\+:x:\([0-9]\{4,\}:\)\{2\}/!{s/^\([[:alnum:]-]\+\):.*/\1/;p}' > "$iusers"
+fi
+zstyle ':completion:*:(ssh|scp|rsync):*:users' ignored-patterns nobody $(<"$iusers")
+
 # }}}
 
 # Other ZSH options. {{{
