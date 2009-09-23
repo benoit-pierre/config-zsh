@@ -60,6 +60,8 @@ then
   alias ls='ls --color=auto -F'
 fi
 alias l='ls -lh' lr='l -R' la='l -a' lt='l -t' lar='l -AR'
+# nicer colors
+eval $(dircolors -b)
 
 # make
 alias am='acoc make'
@@ -142,6 +144,7 @@ export LISTMAX=0
 
 # Colorize completion list.
 zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-colors "$LS_COLORS"
 
 # Caching.
 zstyle ':completion:*' use-cache on
