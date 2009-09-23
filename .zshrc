@@ -60,8 +60,6 @@ then
   alias ls='ls --color=auto -F'
 fi
 alias l='ls -lh' lr='l -R' la='l -a' lt='l -t' lar='l -AR'
-# nicer colors
-eval $(dircolors -b)
 
 # make
 alias am='acoc make'
@@ -130,6 +128,14 @@ setopt BRACE_CCL
 
 # }}}
 
+# Colors. {{{
+
+eval $(dircolors -b)
+
+autoload colors && colors
+
+# }}}
+
 # Completion. {{{
 
 # Enter menu after second key press.
@@ -161,7 +167,7 @@ zstyle ':completion:*' select-prompt %Scurrent selection at %p%s
 zstyle ':completion:*:warnings' format 'no matches for: %d%b'
 zstyle ':completion:*' list-prompt '%Sat %p%s'
 zstyle ':completion:*' auto-description '%d'
-zstyle ':completion:*' format '%d'
+zstyle ':completion:*' format "${bold_color}%d:${reset_color}"
 
 # Use menu mode.
 zstyle ':completion:*' menu select=1
