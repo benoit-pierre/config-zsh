@@ -216,7 +216,7 @@ zstyle ':completion:*' list-suffixes true
 iusers="$ZDOTDIR/cache/ignored-users"
 if [[ ! -f "$iusers" ]]
 then
-  getent passwd | sed -n '/^[[:alnum:]-]\+:x:\([0-9]\{4,\}:\)\{2\}/!{s/^\([[:alnum:]-]\+\):.*/\1/;p}' > "$iusers"
+  getent passwd | sed -n '/^[^:]\+:[x*]:\([0-9]\{4,\}:\)\{2\}/!{s/^\([^:]\+\):.*/\1/p}' > "$iusers"
 fi
 zstyle ':completion:*:(ssh|scp|rsync):*:users' ignored-patterns nobody $(<"$iusers")
 
