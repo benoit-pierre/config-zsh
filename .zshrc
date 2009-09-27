@@ -176,7 +176,7 @@ zstyle ':completion:*' format "${bold_color}%d:${reset_color}"
 zstyle ':completion:*' menu select=1
 
 # Easy selection of more than one entry during menu completion.
-bindkey -M menuselect ' ' accept-and-hold
+bindkey -M menuselect '[2~' accept-and-hold
 
 # Add all matches to completion list, try regular completion, then from both
 # end, and finally try correction.
