@@ -51,12 +51,6 @@ zexport()
 
 zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
-# Locale. {{{
-
-export LC_ALL='en_US.UTF-8'
-
-# }}}
-
 # Path. {{{
 
 zpath PATH "$HOME/progs"/{sbin,bin}
