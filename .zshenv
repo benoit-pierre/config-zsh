@@ -17,8 +17,6 @@ fpath=("$ZDOTDIR/functions" $fpath)
 
 # }}}
 
-umask 077
-
 # Utility functions. {{{
 
 # Logging with timestamp in $ZDOTDIR/log (if $ZDOTDIR/debug exists).
