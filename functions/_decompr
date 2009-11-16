@@ -24,7 +24,7 @@ _decompr()
   '(-v --verbose -q --quiet)'{-q,--quiet}'[silence messages]' \
   '(-q --quiet -v --verbose)'{-v,--verbose}'[be verbose]' \
   \
-  '*:archives*:_files -g "(#i)*.(ace|lha|rar|svz|tar|zip)(-.)"'
+  '*:archives*:_files -g "(#i)*.(ace|lha|rar|svz|tar|tar.bz2|tar.gz|tbz2|tgz|zip)(-.)"'
 }
 
 _decompr
