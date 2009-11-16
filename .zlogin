@@ -149,4 +149,10 @@ autoload ssh-gpg-agents && ssh-gpg-agents
 
 # }}}
 
+# BZR shell-completer. {{{
+
+export BZR_SHELL_COMPLETER="$ZDOTDIR/functions/_bzr"
+
+# }}}
+
 # vim: fdm=marker
