@@ -1,0 +1,31 @@
+#compdef decompr
+
+_decompr()
+{
+  _arguments -s \
+  \
+  '-E[extract archive (global)]' \
+  '-L[list archive contents (global)]' \
+  '-T[test archive integrity (global)]' \
+  '-P[decompress to stdout (global)]' \
+  '-D[destination directory (global)]:directory:_directories' \
+  '-K[do not overwrite existing files (global)]' \
+  '-O[overwrite existing files (global)]' \
+  '-Q[silence messages (global)]' \
+  '-V[be verbose (global)]' \
+  \
+  '(-l --list -t --test -e --extract)'{-e,--extract}'[extract archive (default)]' \
+  '(-e --extract -t --test -d --directory -p --pipe -o --overwrite -k --keep -l --list)'{-l,--list}'[list archive contents]' \
+  '(-e --extract -l --list -d --directory -p --pipe -o --overwrite -k --keep -t --test)'{-t,--test}'[test archive integrity]' \
+  '(-d --directory -o --overwrite -k --keep -l --list -t --test -p --pipe)'{-p,--pipe}'[decompress to stdout]' \
+  '(-p --pipe -d --directory)'{-d,--directory}'[destination directory]:directory:_directories' \
+  '(-p --pipe -o --overwrite -k --keep)'{-k,--keep}'[do not overwrite existing files]' \
+  '(-p --pipe -k --keep -o --overwrite)'{-o,--overwrite}'[overwrite existing files (default)]' \
+  '(-v --verbose -q --quiet)'{-q,--quiet}'[silence messages]' \
+  '(-q --quiet -v --verbose)'{-v,--verbose}'[be verbose]' \
+  \
+  '*:archives*:_files -g "(#i)*.(ace|lha|rar|svz|tar|zip)(-.)"'
+}
+
+_decompr
+
