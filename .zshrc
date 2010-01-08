@@ -32,6 +32,11 @@ bindkey -s '^k' '\epl\epikill -9\ %%\n\egl'
 # Allow comments inside command line.
 setopt INTERACTIVE_COMMENTS
 
+# Support for editing the current command line in an external editor.
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey '^f' edit-command-line
+
 # }}}
 
 # History. {{{
