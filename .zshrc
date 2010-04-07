@@ -244,6 +244,9 @@ setopt PUSHD_IGNORE_DUPS
 # Allow a ' inside '' by doubling it.
 setopt RC_QUOTES
 
+# Disable mail check feature.
+export MAILCHECK=0
+
 # }}}
 
 # Prompt. {{{ 
