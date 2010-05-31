@@ -32,6 +32,9 @@ bindkey -s '^k' '\epl\epikill -9\ %%\n\egl'
 # Allow comments inside command line.
 setopt INTERACTIVE_COMMENTS
 
+# Do not beep on error.
+setopt NO_BEEP
+
 # Support for editing the current command line in an external editor.
 autoload -z edit-command-line
 zle -N edit-command-line
@@ -152,6 +155,9 @@ setopt LIST_PACKED
 setopt AUTO_LIST
 setopt NO_LIST_AMBIGUOUS
 export LISTMAX=0
+
+# No beep on ambigous completion.
+setopt NO_LIST_BEEP
 
 # Load completion list module.
 zmodload zsh/complist
