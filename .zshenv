@@ -178,8 +178,11 @@ then
   . "$rubyenv"
 
   zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
-  zpath PATH "$rubygems/bin"
-  export RUBYOPT=rubygems
+  if [[ -d "$rubygems" ]]
+  then
+    zpath PATH "$rubygems/bin"
+    export RUBYOPT=rubygems
+  fi
 fi
 
 # }}}
