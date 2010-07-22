@@ -97,7 +97,7 @@ export GREP_OPTIONS='--color'
 
 # Man. {{{
 
-pager==pager
+pager==pager 2>/dev/null
 
 if echo -n "$pager" | grep -q '/vimpager\(\.rb\)\?$'
 then
@@ -124,7 +124,7 @@ zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 # Python. {{{
 
-python==python
+python==python 2>/dev/null
 
 if [[ -n "$python" ]]
 then
@@ -151,7 +151,7 @@ fi
 
 # Ruby. {{{
 
-ruby==ruby
+ruby==ruby 2>/dev/null
 
 if [[ -n "$ruby" ]]
 then
