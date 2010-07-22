@@ -97,7 +97,12 @@ export GREP_OPTIONS='--color'
 
 # Man. {{{
 
-export MANPAGER='pager --man'
+pager==pager
+
+if echo -n "$pager" | grep -q '/vimpager\(\.rb\)\?$'
+then
+  export MANPAGER='pager --man'
+fi
 
 typeset -U manpath
 manpath=("$HOME/progs/share/man" ${(s|:|)$(manpath -q)})
