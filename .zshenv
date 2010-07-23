@@ -155,19 +155,35 @@ ruby==ruby 2>/dev/null
 
 if [[ -n "$ruby" ]]
 then
+
+  gem==gem 2>/dev/null
+
   rubyenv="$ZDOTDIR/env/ruby"
-  if [[ ! -r "$rubyenv" || "$rubyenv" -ot "$ruby" ]]
+
+  if [[ ! -r "$rubyenv" || "$rubyenv" -ot "$ruby" || -n "$gem" && "$rubyenv" -ot "$gem" ]]
   then
     rubylib="$HOME/progs/lib/ruby"
-    rubysite="$rubylib/site_ruby/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
-    rubysitearch="$rubysite/`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
-    rubygems="/var/lib/gems/`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+    rubyver="`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+    rubyarch="`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
+    rubysite="$rubylib/site_ruby/$rubyver"
+    rubysitearch="$rubysite/$rubyarch"
+
+    if [[ -n "$gem" ]]
+    then
+      eval "`ruby -r rubygems <<'EOF'
+path = Gem.path.collect { |p| p + '/bin' }
+puts 'rubygemspath=(' + path.join(' ') + ')'
+EOF
+	`"
+    else
+      rubygempath=''
+    fi
 
     {
       echo rubylib=\'$rubylib\'
       echo rubysite=\'$rubysite\'
       echo rubysitearch=\'$rubysitearch\'
-      echo rubygems=\'$rubygems\'
+      echo rubygemspath=\($rubygemspath\)
 
     } > "$rubyenv"
 
@@ -178,9 +194,10 @@ then
   . "$rubyenv"
 
   zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
-  if [[ -d "$rubygems" ]]
+
+  if [[ -n "$rubygemspath" ]]
   then
-    zpath PATH "$rubygems/bin"
+    zpath PATH "$rubygemspath"
     export RUBYOPT=rubygems
   fi
 fi
