@@ -75,6 +75,9 @@ alias amd='am DVD_DEPENDS=yes'
 alias m='make'
 alias md='m DVD_DEPENDS=yes'
 
+# rsync
+alias rscp='rsync --partial --progress --rsh=ssh'
+
 # process
 alias k='kill'
 alias k9='kill -9'
