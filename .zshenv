@@ -51,6 +51,12 @@ zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 # Path. {{{
 
+vimbin="$HOME/.vim/bin"
+if [[ -d "$vimbin" ]]
+then
+  zpath PATH "$vimbin"
+fi
+
 zpath PATH "$HOME/progs"/{sbin,bin}
 
 # }}}
@@ -97,11 +103,11 @@ export GREP_OPTIONS='--color'
 
 # Man. {{{
 
-pager==pager 2>/dev/null
+pager==vimpager 2>/dev/null
 
-if echo -n "$pager" | grep -q '/vimpager\(\.rb\)\?$'
+if [[ -n "$pager" ]]
 then
-  export MANPAGER='pager --man'
+  export MANPAGER='vimpager --man'
 fi
 
 typeset -U manpath
