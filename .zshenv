@@ -103,7 +103,7 @@ export GREP_OPTIONS='--color'
 
 # Man. {{{
 
-pager==vimpager 2>/dev/null
+pager="`which vimpager 2>/dev/null`"
 
 if [[ -n "$pager" ]]
 then
