@@ -7,6 +7,10 @@ ssh-gpg-agents()
     agents=()
     [[ -f "$HOME/.ssh/noagent" ]] || agents+='ssh'
     [[ -f "$HOME/.gnupg/noagent" ]] || agents+='gpg'
+    if [[ 0 -eq $#agents ]]
+    then
+      return 0
+    fi
     keychain --agents "${(j|,|)agents}" "$@"
     code=$?
     [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
