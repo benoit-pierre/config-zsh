@@ -31,13 +31,16 @@ set_kbd()
 
   [ "$answer" = "y" ] &&
   {
-    echo "typeset -g -A key"
+    echo "key+=("
     echo
 
-    for key_name in ${key[(I)*]}
+    for key_name in ${(ko)key}
     do
-      echo "key[$key_name]='${key[$key_name]}'"
+      printf "%-14s '%s'\n" "$key_name" "${key[$key_name]}"
     done
+
+    echo
+    echo ")"
 
   } > "$kbd"
 

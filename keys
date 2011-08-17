@@ -1,25 +1,24 @@
-typeset -g -A keymap
 
-keymap[C-a]='         vi-beginning-of-line                -v'
-keymap[Home]='        vi-beginning-of-line                -v -a'
-keymap[C-e]='         vi-end-of-line                      -v'
-keymap[End]='         vi-end-of-line                      -v -a'
-keymap[Up]='          up-line-or-history                  -v'
-keymap[Down]='        down-line-or-history                -v'
-keymap[Left]='        backward-char                       -v'
-keymap[Right]='       forward-char                        -v'
-keymap[C-Left]='      vi-backward-blank-word              -v -a'
-keymap[C-Right]='     vi-forward-blank-word-end           -v -a'
-keymap[C-Up]='        undo                                -v -a'
-keymap[Delete]='      vi-delete-char                      -v'
-keymap[C-Delete]='    delete-word                         -v -a'
-keymap[Backspace]='   vi-backward-delete-char             -v'
-keymap[C-Backspace]=' vi-backward-kill-word               -v -a'
-keymap[C-Home]='      vi-pound-insert                     -v'
-keymap[Insert]='      vi-insert                           -a'
-keymap[Insert]='      overwrite-mode                      -v'
-keymap[S-Tab]='       reverse-menu-complete               -v'
-keymap[u]='           undo                                -a'
-keymap[C-r]='         redo                                -a'
-keymap[C-r]='         history-incremental-search-backward -v'
-keymap['"']='         vi-goto-mark                        -a'
+C-a          vi-beginning-of-line                 -v
+Home         vi-beginning-of-line                 -v -a
+C-e          vi-end-of-line                       -v
+End          vi-end-of-line                       -v -a
+Up           up-line-or-history                   -v
+Down         down-line-or-history                 -v
+Left         backward-char                        -v
+Right        forward-char                         -v
+C-Left       vi-backward-blank-word               -v -a
+C-Right      vi-forward-blank-word-end            -v -a
+Delete       vi-delete-char                       -v
+C-Delete     delete-word                          -v -a
+Backspace    vi-backward-delete-char              -v
+C-Backspace  vi-backward-kill-word                -v -a
+C-Home       push-line-or-edit                    -v
+Insert       vi-insert                            -a
+Insert       overwrite-mode                       -v
+S-Tab        reverse-menu-complete                -v
+u            undo                                 -a
+C-r          redo                                 -a
+C-r          history-incremental-search-backward  -v
+Escape       vi-cmd-mode                          -a
+

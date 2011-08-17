@@ -9,37 +9,46 @@ load_kbd()
     return 1
   fi
 
-  source "$keys" || return 2
-
   kbd="$ZDOTDIR/kbd/$TERM-$VENDOR-$OSTYPE"
+
+  typeset -g -A default_key
+
+  default_key=(
+  C-a     ''
+  C-e     ''
+  C-r     ''
+  Escape  ''
+  u       'u'
+  )
+
+  typeset -g -A key
+
+  key+=(${(@kv)default_key})
 
   if [[ ! -r "$kbd" ]]
   then
     echo 1>&2 "No keymap definition file: $kbd"
-    return 3
+  else
+    source "$kbd" || return 3
   fi
-
-  source "$kbd" || return 4
 
   bindkey -N bpmap viins
   bindkey -A bpmap main
 
-  for k in ${(k)keymap}
+  sed -n 's/#.*//;/^[ 	]*$/!p' "$keys" | while read keyname action modes
   do
-    keycode="${key[$k]}"
+    keycode="${key[$keyname]}"
 
     if [[ -z "$keycode" ]]
     then
+      zlog "load_kbd: ignore '$keyname:$action:$modes' binding"
       continue
     fi
 
-    binding=(${(s. .)keymap[$k]})
-    action="$binding[1]"
-    shift binding
-
-    for opt in $binding
+    for mode in ${(s. .)modes}
     do
-      eval "bindkey $opt '$keycode' '$action'"
+      zlog "load_kbd: bindkey $mode '$keyname' $action"
+      eval "bindkey $mode '$keycode' $action"
     done
   done
 }
