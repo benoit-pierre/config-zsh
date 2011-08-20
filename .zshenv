@@ -130,7 +130,7 @@ zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 # Python. {{{
 
-python==python 2>/dev/null
+python="`which python`" || python=''
 
 if [[ -n "$python" ]]
 then
@@ -157,12 +157,12 @@ fi
 
 # Ruby. {{{
 
-ruby==ruby 2>/dev/null
+ruby="`which ruby`" || ruby=''
 
 if [[ -n "$ruby" ]]
 then
 
-  gem==gem 2>/dev/null
+  gem="`which gem`" || gem=''
 
   rubyenv="$ZDOTDIR/env/ruby"
 
