@@ -1,0 +1,24 @@
+key+=(
+
+Backspace      ''
+C-a            ''
+C-Backspace    ''
+C-Delete       '[3;5~'
+C-e            ''
+C-Home         '[1;5H'
+C-Left         '[1;5D'
+C-r            ''
+C-Right        '[1;5C'
+Delete         '[3~'
+Down           '[B'
+End            '[4~'
+Escape         ''
+Home           '[1~'
+Insert         '[2~'
+Left           '[D'
+Right          '[C'
+S-Tab          '[Z'
+u              'u'
+Up             '[A'
+
+)
