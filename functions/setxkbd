@@ -9,9 +9,9 @@ setxkbd()
   do
     if [[ "$type" = 'TypeMatrix.com' ]]
     then
-      true
+      setxkbmap -device "$id" us -variant colemak -option -option caps:capslock,shift:both_capslock
     else
-      setxkbmap -device "$id" -option compose:rwin,caps:backspace
+      setxkbmap -device "$id" us -option -option caps:backspace,compose:rwin,shift:both_capslock
     fi
   done
 
