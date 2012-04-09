@@ -1,5 +1,5 @@
 
-set_kbd()
+setkbd()
 {
   kbd="$ZDOTDIR/kbd/$TERM-$VENDOR-$OSTYPE"
 
@@ -44,7 +44,7 @@ set_kbd()
 
   } > "$kbd"
 
-  load_kbd
+  loadkbd
 }
 
 # vim: ft=zsh

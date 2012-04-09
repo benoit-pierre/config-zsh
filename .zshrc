@@ -17,10 +17,10 @@ export KEYTIMEOUT=1
 bindkey -d
 
 # Setup key mapping.
-autoload load_kbd set_kbd &&
-if ! load_kbd
+autoload loadkbd setkbd &&
+if ! loadkbd
 then
-  set_kbd
+  setkbd
 fi
 
 # Quick binding to kill current job.

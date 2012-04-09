@@ -1,5 +1,5 @@
 
-load_kbd()
+loadkbd()
 {
   keys="$ZDOTDIR/keys"
 
@@ -41,13 +41,13 @@ load_kbd()
 
     if [[ -z "$keycode" ]]
     then
-      zlog "load_kbd: ignore '$keyname:$action:$modes' binding"
+      zlog "loadkbd: ignore '$keyname:$action:$modes' binding"
       continue
     fi
 
     for mode in ${(s. .)modes}
     do
-      zlog "load_kbd: bindkey $mode '$keyname' $action"
+      zlog "loadkbd: bindkey $mode '$keyname' $action"
       eval "bindkey $mode '$keycode' $action"
     done
   done
