@@ -161,50 +161,58 @@ ruby="`which ruby`" || ruby=''
 
 if [[ -n "$ruby" ]]
 then
-
-  gem="`which gem`" || gem=''
-
-  rubyenv="$ZDOTDIR/env/ruby"
-
-  if [[ ! -r "$rubyenv" || "$rubyenv" -ot "$ruby" || -n "$gem" && "$rubyenv" -ot "$gem" ]]
+  rvmpath="$HOME/.rvm"
+  rvmscripts="$rvmpath/scripts"
+  if [[ -s "$rvmscripts/rvm" ]]
   then
-    rubylib="$HOME/progs/lib/ruby"
-    rubyver="`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
-    rubyarch="`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
-    rubysite="$rubylib/site_ruby/$rubyver"
-    rubysitearch="$rubysite/$rubyarch"
+    . "$rvmscripts/rvm"
+    rvmcompl="$ZDOTDIR/functions/_rvm"
+    [[ -e "$rvmcompl" ]] || ln -s "$rvmscripts/zsh/Completion/_rvm" "$rvmcompl"
+  else
+    gem="`which gem`" || gem=''
 
-    if [[ -n "$gem" ]]
+    rubyenv="$ZDOTDIR/env/ruby"
+
+    if [[ ! -r "$rubyenv" || "$rubyenv" -ot "$ruby" || -n "$gem" && "$rubyenv" -ot "$gem" ]]
     then
-      eval "`ruby -r rubygems <<'EOF'
+      rubylib="$HOME/progs/lib/ruby"
+      rubyver="`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
+      rubyarch="`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
+      rubysite="$rubylib/site_ruby/$rubyver"
+      rubysitearch="$rubysite/$rubyarch"
+
+      if [[ -n "$gem" ]]
+      then
+	eval "`ruby -r rubygems <<'EOF'
 path = Gem.path.collect { |p| p + '/bin' }
 puts 'rubygemspath=(' + path.join(' ') + ')'
 EOF
 	`"
-    else
-      rubygempath=''
+      else
+	rubygempath=''
+      fi
+
+      {
+	echo rubylib=\'$rubylib\'
+	echo rubysite=\'$rubysite\'
+	echo rubysitearch=\'$rubysitearch\'
+	echo rubygemspath=\($rubygemspath\)
+
+      } > "$rubyenv"
+
+      zcompile "$rubyenv"
+
     fi
 
-    {
-      echo rubylib=\'$rubylib\'
-      echo rubysite=\'$rubysite\'
-      echo rubysitearch=\'$rubysitearch\'
-      echo rubygemspath=\($rubygemspath\)
+    . "$rubyenv"
 
-    } > "$rubyenv"
+    zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
 
-    zcompile "$rubyenv"
-
-  fi
-
-  . "$rubyenv"
-
-  zpath RUBYLIB "$rubysitearch" "$rubysite" "$rubylib"
-
-  if [[ -n "$rubygemspath" ]]
-  then
-    zpath PATH "$rubygemspath"
-    export RUBYOPT=rubygems
+    if [[ -n "$rubygemspath" ]]
+    then
+      zpath PATH "$rubygemspath"
+      export RUBYOPT=rubygems
+    fi
   fi
 fi
 
