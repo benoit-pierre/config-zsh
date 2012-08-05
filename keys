@@ -9,9 +9,9 @@ Left         backward-char                        -v
 Right        forward-char                         -v
 C-Left       vi-backward-blank-word               -v -a
 C-Right      vi-forward-blank-word-end            -v -a
-Delete       vi-delete-char                       -v
+Delete       vi-delete-char                       -v -a
 C-Delete     delete-word                          -v -a
-Backspace    vi-backward-delete-char              -v
+Backspace    vi-backward-delete-char              -v -a
 C-Backspace  vi-backward-kill-word                -v -a
 C-Home       push-line-or-edit                    -v
 Insert       vi-insert                            -a
