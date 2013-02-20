@@ -67,7 +67,7 @@ if [[ "$TERM" != "dumb" ]]
 then
   alias ls='ls --color=auto -F'
 fi
-alias l='ls -lh' lr='l -R' la='l -a' lt='l -t' lar='l -AR'
+alias l='ls -lh' lr='l -R' la='l -a' lt='l -rt' lar='l -AR' lS='l -rS'
 
 # make
 alias am='acoc make'
