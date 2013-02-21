@@ -176,8 +176,8 @@ then
     if [[ ! -r "$rubyenv" || "$rubyenv" -ot "$ruby" || -n "$gem" && "$rubyenv" -ot "$gem" ]]
     then
       rubylib="$HOME/progs/lib/ruby"
-      rubyver="`ruby -r rbconfig -e 'print Config::CONFIG["ruby_version"]'`"
-      rubyarch="`ruby -r rbconfig -e 'print Config::CONFIG["arch"]'`"
+      rubyver="`ruby -r rbconfig -e 'print RbConfig::CONFIG["ruby_version"]'`"
+      rubyarch="`ruby -r rbconfig -e 'print RbConfig::CONFIG["arch"]'`"
       rubysite="$rubylib/site_ruby/$rubyver"
       rubysitearch="$rubysite/$rubyarch"
 
