@@ -22,10 +22,14 @@ fpath=("$ZDOTDIR/functions" $fpath)
 # Logging with timestamp in $ZDOTDIR/log (if $ZDOTDIR/debug exists).
 if [[ -r "$ZDOTDIR/debug" ]]
 then
-  zlog() { echo "$(date --rfc-3339=sec) $@" >> "$ZDOTDIR/log" }
+  zlog() { echo "$(date --rfc-3339=sec) [$$] $@" >> "$ZDOTDIR/log" }
+  alias zlog-source='zlog "source $(print -P %x)${TTY:+ [$TTY]}"'
 else
   zlog() {}
+  alias zlog-source=''
 fi
+
+zlog-source
 
 # Will prepend $1 to path (removing existing duplicates).
 zpath()
@@ -46,8 +50,6 @@ zexport()
 }
 
 # }}}
-
-zlog "source $(print -P %N)${TTY:+ [$TTY]}"
 
 # Path. {{{
 
