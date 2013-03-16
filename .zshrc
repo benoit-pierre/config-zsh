@@ -149,6 +149,9 @@ autoload colors && colors
 
 # Completion. {{{
 
+# Initialize completion system.
+autoload -U compinit && compinit
+
 # Enter menu after second key press.
 setopt AUTO_MENU
 
