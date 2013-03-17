@@ -72,14 +72,14 @@ zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 # Python. {{{
 
-python="`which python`" || python=''
+python="`which python2`" || python=''
 
 if [[ -n "$python" ]]
 then
   pythonenv="$ZDOTDIR/env/python"
   if [[ ! -r "$pythonenv" || "$pythonenv" -ot "$python" ]]
   then
-    pythonlib="$HOME/progs/lib/python$(python -V |& cut -b 8-10)/site-packages"
+    pythonlib="$HOME/progs/lib/python$("$python" -V |& cut -b 8-10)/site-packages"
 
     {
       echo pythonlib=\'$pythonlib\'
