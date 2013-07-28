@@ -177,6 +177,7 @@ zstyle ':completion:*' list-colors "$LS_COLORS"
 zstyle ':completion:*' group-name ''
 
 # Caching.
+mkdir -p "$ZDOTDIR/cache"
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$ZDOTDIR/cache"
 

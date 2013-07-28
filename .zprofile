@@ -13,6 +13,12 @@ zpath PATH "$HOME/progs"/{sbin,bin}
 
 # }}}
 
+# Make sure environment directory exists. {{{
+
+mkdir -p "$ZDOTDIR/env"
+
+# }}}
+
 # Library path. {{{
 
 zpath LD_LIBRARY_PATH "$HOME/progs/lib"

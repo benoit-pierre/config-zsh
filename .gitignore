@@ -1,0 +1,10 @@
+*.zwc
+/.zcompdump
+/cache/*
+/debug
+/env/python
+/env/ruby
+/functions/_bzr
+/history
+/log
+/profile
