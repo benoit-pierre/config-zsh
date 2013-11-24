@@ -137,12 +137,6 @@ vmake()
 
 # }}}
 
-# SSH/GPG agents. {{{
-
-ssh-gpg-agents
-
-# }}}
-
 # Expansion and globbing. {{{
 
 # Don't expand globs in place, but generate a completion list.
@@ -290,6 +284,12 @@ autoload promptinit && promptinit
 
 # Prompt theme.
 prompt bpierre
+
+# }}}
+
+# SSH/GPG agents. {{{
+
+ssh-gpg-agents
 
 # }}}
 
