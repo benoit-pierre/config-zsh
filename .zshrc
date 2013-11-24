@@ -287,6 +287,12 @@ prompt bpierre
 
 # }}}
 
+# Package management. {{{
+
+pkm
+
+# }}}
+
 # SSH/GPG agents. {{{
 
 ssh-gpg-agents
