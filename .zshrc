@@ -152,6 +152,9 @@ setopt GLOB_COMPLETE
 # word1 word2 worda wordd wordz
 setopt BRACE_CCL
 
+# Enable extending globbing.
+setopt EXTENDED_GLOB
+
 # }}}
 
 # Colors. {{{
