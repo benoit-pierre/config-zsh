@@ -280,7 +280,7 @@ export MAILCHECK=0
 
 # }}}
 
-# Prompt. {{{ 
+# Prompt. {{{
 
 # Activate expansion inside prompt.
 setopt PROMPT_SUBST
