@@ -101,6 +101,7 @@ fi
 
 alias bs='bzr shell'
 alias d='du -xhc --max-depth=1 --exclude="./.?*"'
+alias ez='exec zsh'
 alias f='find'
 alias g='grep'
 alias h='head'
