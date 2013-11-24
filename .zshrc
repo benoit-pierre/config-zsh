@@ -121,6 +121,13 @@ alias -g X='|xargs'
 alias -g X0='|xargs -0'
 alias -g FX0='-print0|xargs -0'
 
+# pipe edit
+vimpager="`which vimpager 2>/dev/null`"
+if [[ -n "$vimpager" ]]
+then
+  alias -g E='|vimpager --pipe-edit|'
+fi
+
 # }}}
 
 # Useful functions. {{{
