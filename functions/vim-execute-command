@@ -1,0 +1,7 @@
+
+emulate -L zsh
+
+autoload -Uz vim-edit-command-line
+
+vim-edit-command-line -E -c '%p | exe input("") | x'
+

@@ -21,4 +21,7 @@ u            undo                                 -a
 C-r          redo                                 -a
 C-r          history-incremental-search-backward  -v
 Escape       vi-cmd-mode                          -a
+C-f          vim-edit-command-line                -v -a
+C-x          vim-execute-command                  -v -a
+C-Enter      vim-edit-command-output              -v -a
 

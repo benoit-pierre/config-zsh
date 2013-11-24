@@ -16,9 +16,12 @@ loadkbd()
   default_key=(
   C-a     ''
   C-e     ''
+  C-f     ''
   C-r     ''
+  C-x     ''
   Escape  ''
   u       'u'
+  :       ':'
   )
 
   typeset -g -A key

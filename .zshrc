@@ -35,10 +35,18 @@ setopt INTERACTIVE_COMMENTS
 # Do not beep on error.
 setopt NO_BEEP
 
-# Support for editing the current command line in an external editor.
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey '^f' edit-command-line
+# Support for editing the current command line in VIM.
+autoload -z vim-edit-command-line
+zle -N vim-edit-command-line
+
+# Support for executing the current command line and editing the output as a
+# new command line in VIM.
+autoload -z vim-edit-command-output
+zle -N vim-edit-command-output
+
+# Support for executing a VIM command on the edit buffer.
+autoload -z vim-execute-command
+zle -N vim-execute-command
 
 # }}}
 
