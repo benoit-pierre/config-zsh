@@ -287,14 +287,12 @@ prompt bpierre
 
 # }}}
 
-# Package management. {{{
+# Load utility functions. {{{
 
+# Package management.
 pkm
 
-# }}}
-
-# SSH/GPG agents. {{{
-
+# SSH/GPG agents.
 ssh-gpg-agents
 
 # }}}
