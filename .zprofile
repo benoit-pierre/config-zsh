@@ -1,9 +1,16 @@
 
 zlog-source
 
+# XDG config directory. {{{
+
+# Simplify the rest of the code by setting XDG_CONFIG_HOME.
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# }}}
+
 # Path. {{{
 
-vimbin="$HOME/.vim/bin"
+vimbin="$XDG_CONFIG_HOME/vim/bin"
 if [[ -d "$vimbin" ]]
 then
   zpath PATH "$vimbin"
@@ -33,13 +40,13 @@ export EDITOR='vim'
 
 # Readline. {{{
 
-export INPUTRC="$HOME/.readline/inputrc"
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
 # }}}
 
 # Screen. {{{
 
-export SCREENRC="$HOME/.screen/rc"
+export SCREENRC="$XDG_CONFIG_HOME/screen/rc"
 
 # }}}
 

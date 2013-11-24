@@ -2,7 +2,7 @@
 # Set ZDOTDIR if it wasn't already.
 if [[ -z "$ZDOTDIR" ]]
 then
-  export ZDOTDIR="$HOME/.zsh"
+  export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 fi
 
 # Profiling.
