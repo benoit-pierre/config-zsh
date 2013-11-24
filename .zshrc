@@ -124,7 +124,7 @@ alias -g FX0='-print0|xargs -0'
 
 # Useful functions. {{{
 
-# launch make inside VIM
+# Launch make inside VIM.
 vmake()
 {
   cmd="VMake"
