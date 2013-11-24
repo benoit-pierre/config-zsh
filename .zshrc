@@ -93,6 +93,12 @@ alias pk='pkill'
 alias pk9='pkill -9'
 alias pg='pgrep'
 
+# man in gvim
+if [[ "$MANPAGER" =~ '^vimpager\>' ]]
+then
+  alias gman="MANPAGER='$MANPAGER -g' man"
+fi
+
 alias bs='bzr shell'
 alias d='du -xhc --max-depth=1 --exclude="./.?*"'
 alias f='find'
