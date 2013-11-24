@@ -1,0 +1,68 @@
+
+# Execute a command from another directory.
+
+ecd()
+{
+  [[ $# -lt 2 ]] && return 1
+  dir="$1"
+  cmd=()
+  cmd+="${aliases[$2]-$2}"
+  shift 2
+  for arg in "$@"
+  do
+    cmd+="${galiases[$arg]-$arg}"
+  done
+  (cd "$dir" && eval "$cmd[@]")
+}
+
+alias ecd='noglob ecd'
+
+_ecd-complete()
+{
+  if [[ 'ecd' != "$service" ]]
+  then
+    _message "Error: invalid service: $service"
+    return
+  fi
+
+  local curcontext=$curcontext state state_descr
+  typeset -A opt_args
+
+  _arguments -C \
+    '1:directory:->directory' \
+    '2: :->command' \
+    '*: :->arguments' \
+
+  if [[ directory = "$state" ]]
+  then
+    _call_function ret _directories
+    return
+  fi
+
+  if ! cd "$words[2]"
+  then
+    _message "Error: no such directory: $words[2]"
+    return
+  fi
+
+  {
+    case "$state" in
+
+      command)
+        _command_names -e
+        ;;
+
+      arguments)
+        shift 2 words
+        ((CURRENT-=2))
+        _normal
+        ;;
+
+    esac
+
+  } always { cd "$OLDPWD" }
+}
+
+compdef _ecd-complete ecd
+
+# vim: ft=zsh

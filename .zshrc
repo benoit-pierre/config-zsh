@@ -289,6 +289,9 @@ prompt bpierre
 
 # Load utility functions. {{{
 
+# Execute a command from another directory.
+ecd
+
 # Package management.
 pkm
 
