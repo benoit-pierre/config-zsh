@@ -1,6 +1,8 @@
 
 zlog-source
 
+# Base configuration. {{{
+
 # XDG config directory. {{{
 
 # Simplify the rest of the code by setting XDG_CONFIG_HOME.
@@ -32,27 +34,23 @@ zpath LD_LIBRARY_PATH "$HOME/progs/lib"
 
 # }}}
 
+# }}}
+
 # Editor. {{{
 
 export EDITOR='vim'
 
 # }}}
 
-# Readline. {{{
-
-export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
-
-# }}}
-
-# Screen. {{{
-
-export SCREENRC="$XDG_CONFIG_HOME/screen/rc"
-
-# }}}
-
 # Grep. {{{
 
 export GREP_OPTIONS='--color'
+
+# }}}
+
+# Info. {{{
+
+zpath INFOPATH "$HOME/progs/share/info"
 
 # }}}
 
@@ -69,13 +67,7 @@ typeset -U manpath
 manpath=("$HOME/progs/share/man" ${(s|:|)$(manpath -q)})
 export MANPATH="${(j|:|)manpath}"
 
-# }}
-
-# Info. {{{
-
-zpath INFOPATH "$HOME/progs/share/info"
-
-# }}
+# }}}
 
 # pkg-config. {{{
 
@@ -107,6 +99,12 @@ then
 
   zpath PYTHONPATH "$pythonlib"
 fi
+
+# }}}
+
+# Readline. {{{
+
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
 # }}}
 
@@ -173,6 +171,12 @@ fi
 
 # }}}
 
+# Screen. {{{
+
+export SCREENRC="$XDG_CONFIG_HOME/screen/rc"
+
+# }}}
+
 # Sup. {{{
 
 # Switch to Xapian index.
@@ -189,4 +193,4 @@ fi
 
 # }}}
 
-# vim: fdm=marker
+# vim: fdm=marker foldlevel=0
