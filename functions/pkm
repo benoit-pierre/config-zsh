@@ -6,11 +6,11 @@ _pkm_dryrun=0
 _pkm_verbose=0
 _pkm_manager=''
 
-case "`lsb_release -i -s`" in
+case "`lsb_release -i -s | tr A-Z a-z`" in
   arch)
     _pkm_manager='pac'
     ;;
-  Ubuntu)
+  ubuntu)
     _pkm_manager='apt'
     ;;
 esac
