@@ -132,6 +132,23 @@ fi
 
 # Useful functions. {{{
 
+# Improved calc.
+calc()
+{
+  cmd=(calc)
+  if [[ -t 1 ]]
+  then
+    if [[ 0 -eq $# ]]
+    then
+      cmd+=-i
+    fi
+    cmd+='config("mode2", "hexadecimal"),'
+  else
+    cmd+=-p
+  fi
+  command "$cmd[@]" "$@"
+}
+
 # Launch make inside VIM.
 vmake()
 {
