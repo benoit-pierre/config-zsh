@@ -2,7 +2,7 @@ key+=(
 
 Backspace      ''
 C-a            ''
-C-Backspace    ''
+C-Backspace    ''
 C-e            ''
 C-r            ''
 Delete         '[3~'

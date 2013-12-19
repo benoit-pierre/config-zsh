@@ -2,7 +2,7 @@ key+=(
 
 Backspace      ''
 C-a            ''
-C-Backspace    ''
+C-Backspace    ''
 C-Delete       '[3;5~'
 C-e            ''
 C-Home         '[1;5H'
