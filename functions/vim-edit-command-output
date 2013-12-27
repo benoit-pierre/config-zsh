@@ -4,6 +4,6 @@ emulate -L zsh
 local tmpfile="${TMPPREFIX:-/tmp/zsh}ecmd$$"
 eval "$PREBUFFER$BUFFER" >"$tmpfile"
 exec </dev/tty
-vim -V0 -i "$ZDOTDIR/history-vim" "$tmpfile" -c "goto $(($CURSOR+1))" "$@" && BUFFER="$(<$tmpfile)"
+vim -n -V0 -i "$ZDOTDIR/history-vim" "$tmpfile" -c "goto $(($CURSOR+1))" "$@" && BUFFER="$(<$tmpfile)"
 command rm -f "$tmpfile"
 
