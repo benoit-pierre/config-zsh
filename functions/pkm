@@ -23,6 +23,7 @@ _pkm_aliases=(           \
   ff   find-file         \
   ffu  find-file-update  \
   i    install           \
+  if   install-file      \
   l    list              \
   lb   list-big          \
   li   list-installed    \
@@ -44,7 +45,8 @@ operations:
     ff   find-file           <pattern>     :  find package containing file
     ffu  find-file-update                  :  update repo files lists
     h    help                              :  show this help
-    i    install             <package(s)>  :  install package
+    i    install             <package(s)>  :  install package(s)
+    if   install-file        <file(s)>     :  install package(s) from file(s)
     l    list                <package(s)>  :  list package contents
     lb   list-big            [count]       :  list big packages
     li   list-installed                    :  list installed packages
@@ -103,7 +105,7 @@ _pkm-check-cmd()
       _pkm-help "$@"
       return $?
       ;;
-    install|list|query|remove)
+    install|install-file|list|query|remove)
       [[ $# -ge 1 ]]
       ;;
     list-big)
@@ -126,14 +128,22 @@ _pkm-check-cmd()
 _pkm-complete-all-packages()
 {
   _arguments -s : \
-    "*:package group:$_pkm_complete_all_packages" \
+    "*:package:$_pkm_complete_all_packages" \
+    && ret=0
+}
+
+_pkm-complete-package-files()
+{
+  _arguments -s : \
+    - recur '*:directory:_path_files -/' \
+    - nonrecur "*:package:$_pkm_complete_package_files" \
     && ret=0
 }
 
 _pkm-complete-installed-packages()
 {
   _arguments -s : \
-    "*:package group:$_pkm_complete_installed_packages" \
+    "*:package:$_pkm_complete_installed_packages" \
     && ret=0
 }
 
@@ -166,6 +176,7 @@ _pkm-complete-search-text()
 _pkm-complete()
 {
   _pkm_complete_all_packages=''
+  _pkm_complete_package_files=''
   _pkm_complete_installed_packages=''
 
   if [[ 'pkm' = "$service" ]]
@@ -177,6 +188,7 @@ _pkm-complete()
 
     pkm-apt)
       _pkm_complete_all_packages='_deb_packages avail'
+      _pkm_complete_package_files='_path_files -g "*.deb(-.)"'
       _pkm_complete_installed_packages='_deb_packages installed'
       ;;
 
@@ -202,6 +214,7 @@ _pkm-complete()
       }
 
       _pkm_complete_all_packages='_pacman_completions_all_packages'
+      _pkm_complete_package_files='_path_files -g "*.pkg.tar*~*.sig(.,@)"'
       _pkm_complete_installed_packages='_pacman_completions_installed_packages'
 
       ;;
@@ -232,6 +245,7 @@ _pkm-complete()
       {ffu,find-file-update}':update repo files lists'
       {h,help}':show help'
       {i,install}':install package'
+      {if,install-file}':install package from file'
       {l,list}':list package contents'
       {lb,list-big}':list big packages'
       {li,list-installed}':list installed packages'
@@ -263,6 +277,9 @@ _pkm-complete()
           ;;
         install)
           cpl=all-packages
+          ;;
+        install-file)
+          cpl=package-files
           ;;
         list|list-installed|query|remove)
           cpl=installed-packages
@@ -310,6 +327,9 @@ pkm-apt()
       ;;
     install)
       _pkm-sudo-cmd apt-get install "$@"
+      ;;
+    install-file)
+      _pkm-sudo-cmd dpkg --install "$@"
       ;;
     list)
       _pkm-exec-cmd dpkg --listfiles "$@"
@@ -367,6 +387,9 @@ pkm-pac()
       ;;
     install)
       _pkm-sudo-cmd pacman --sync "$@"
+      ;;
+    install-file)
+      _pkm-sudo-cmd pacman --upgrade "$@"
       ;;
     list)
       _pkm-exec-cmd pacman --query --list "$@"
