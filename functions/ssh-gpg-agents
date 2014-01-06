@@ -4,17 +4,28 @@ ssh-gpg-agents()
 {
   if which keychain &>/dev/null
   then
+    cmd=(keychain --inherit any)
+    mode='start'
     agents=()
-    [[ -f "$HOME/.ssh/noagent" ]] || agents+='ssh'
+    [[ ( -z "$SSH_CONNECTION" || -z "$SSH_AUTH_SOCK" ) && -f "$HOME/.ssh/noagent" ]] || agents+='ssh'
     [[ -f "$HOME/.gnupg/noagent" ]] || agents+='gpg'
     if [[ 0 -eq $#agents ]]
     then
       return 0
     fi
-    keychain --agents "${(j|,|)agents}" "$@"
+    cmd+=(--agents "${(j|,|)agents}")
+    if [[ 'x-k' = "x$1" ]]
+    then
+      mode='stop'
+      cmd+=(--stop mine)
+    fi
+    "$cmd[@]"
     code=$?
-    [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
-    [[ -n "${agents[(ke)gpg]}" && -f "$HOME/.keychain/$HOST-sh-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
+    if [[ 'start' = "$mode" ]]
+    then
+      [[ -n "${agents[(ke)gpg]}" && -f "$HOME/.keychain/$HOST-sh-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
+      [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
+    fi
     return $code
   else
     echo 1>&2 'Keychain is not installed! SSH/GPG agents handling disabled.'
