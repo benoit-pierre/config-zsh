@@ -10,7 +10,7 @@ case "`lsb_release -i -s | tr A-Z a-z`" in
   arch)
     _pkm_manager='pac'
     ;;
-  ubuntu)
+  linuxmint|ubuntu)
     _pkm_manager='apt'
     ;;
 esac
