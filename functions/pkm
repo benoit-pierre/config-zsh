@@ -338,7 +338,13 @@ pkm-apt()
       _pkm-exec-cmd dpigs --human-readable --lines="${1:-$(($LINES-1))}" | tac
       ;;
     list-installed)
-      _pkm-exec-cmd dpkg-query --show --showformat='${PackageSpec} ${Version} (${Status})\n' "$@"
+      if [[ -t 1 ]]
+      then
+        fmt='${db:Status-Abbrev} [0;1m${Package} [1;32m${Version}[0m\n'
+      else
+        fmt='${db:Status-Abbrev} ${Package} ${Version}\n'
+      fi
+      _pkm-exec-cmd dpkg-query --show --showformat="$fmt" "$@" | sed -n 's/^.i. //p'
       ;;
     query)
       _pkm-exec-cmd apt-cache show "$@"
