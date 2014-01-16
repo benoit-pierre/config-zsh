@@ -413,7 +413,7 @@ pkm-pac()
       _pkm-sudo-cmd pacman --remove --cascade --recursive "$@"
       ;;
     remove-auto)
-      pacman --query --deps --quiet --unrequired | _pkm-sudo-cmd pacman --remove --recursive -
+      pacman --query --deps --quiet --unrequired | _pkm-sudo-cmd xargs --no-run-if-empty pacman --remove --recursive
       ;;
     search)
       _pkm-exec-cmd pacman --sync --search "$1"
