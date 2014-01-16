@@ -312,12 +312,15 @@ pkm-apt()
   _pkm-check-cmd "$@" || return $?
   shift
 
+  local -a apt_get
+  apt_get=(apt-get --verbose-versions --auto-remove)
+
   case "$_pkm_cmd" in
     clean)
-      _pkm-sudo-cmd apt-get autoclean
+      _pkm-sudo-cmd $apt_get autoclean
       ;;
     clean-all)
-      _pkm-sudo-cmd apt-get clean
+      _pkm-sudo-cmd $apt_get clean
       ;;
     find-file)
       _pkm-exec-cmd apt-file search "$1"
@@ -326,7 +329,7 @@ pkm-apt()
       _pkm-sudo-cmd apt-file update
       ;;
     install)
-      _pkm-sudo-cmd apt-get install "$@"
+      _pkm-sudo-cmd $apt_get install "$@"
       ;;
     install-file)
       _pkm-sudo-cmd dpkg --install "$@"
@@ -350,19 +353,19 @@ pkm-apt()
       _pkm-exec-cmd apt-cache show "$@"
       ;;
     remove)
-      _pkm-sudo-cmd apt-get remove "$@"
+      _pkm-sudo-cmd $apt_get remove "$@"
       ;;
     remove-auto)
-      _pkm-sudo-cmd apt-get autoremove
+      _pkm-sudo-cmd $apt_get autoremove
       ;;
     search)
       _pkm-exec-cmd apt-cache search "$1"
       ;;
     update)
-      _pkm-sudo-cmd apt-get update && _pkm-sudo-cmd apt-get dist-upgrade
+      _pkm-sudo-cmd $apt_get update && _pkm-sudo-cmd $apt_get dist-upgrade
       ;;
     update-fast)
-      _pkm-sudo-cmd apt-get dist-upgrade
+      _pkm-sudo-cmd $apt_get dist-upgrade
       ;;
     *)
       return 1
