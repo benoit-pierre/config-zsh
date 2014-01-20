@@ -12,12 +12,28 @@ EOF
 
 prompt_bpierre_setup()
 {
+  local -A attrs
+
+  # Only use visual effects if terminal is "smart".
   if [[ "$TERM" != "dumb" ]]
   then
-    PS1="%b%u%F{white}%~ %(?.%F{green}>.%F{red}!)%f "
-  else
-    PS1='%~ %(?.>.!) '
+    attrs[reset]='%b%f%k%s%u'
+    attrs[normal]='%F{white}'
+    attrs[privileges]='%F{yellow}'
+    attrs[success]='%F{green}'
+    attrs[failure]='%F{red}'
   fi
+
+  PS1="$attrs[reset]$attrs[normal]"
+
+  # Show user@host when root, logged from ssh, or inside sudo.
+  if [[ 0 -eq "$UID" || -n "$SSH_CONNECTION" || -n "$SUDO_UID" ]]
+  then
+    PS1+="%(!,$attrs[privileges],)%n@%m$attrs[normal]:"
+  fi
+
+  # Show path and last command success/failure.
+  PS1+="%~ %(?,$attrs[success],$attrs[failure]%?)>$attrs[reset] "
 }
 
 prompt_bpierre_setup "$@"
