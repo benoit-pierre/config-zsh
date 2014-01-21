@@ -1,7 +1,7 @@
 
 setkbd()
 {
-  kbd="$ZDOTDIR/kbd/$TERM-$VENDOR-$OSTYPE"
+  kbd="$ZDOTDIR/kbd/$TERM"
 
   echo "Setting \`$kbd'"
   echo

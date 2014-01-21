@@ -9,7 +9,7 @@ loadkbd()
     return 1
   fi
 
-  kbd="$ZDOTDIR/kbd/$TERM-$VENDOR-$OSTYPE"
+  kbd="$ZDOTDIR/kbd/$TERM"
 
   typeset -g -A default_key
 
