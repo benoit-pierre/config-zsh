@@ -41,7 +41,12 @@ export LC_ALL='en_US.UTF-8'
 
 # SSH/GPG agents. {{{
 
-autoload ssh-gpg-agents && ssh-gpg-agents
+autoload ssh-gpg-agents
+# Do not automatically start agents when login from ssh.
+if [[ 0 -eq $? && -z "$SSH_CONNECTION" ]]
+then
+  ssh-gpg-agents
+fi
 
 # }}}
 
