@@ -1,36 +1,113 @@
 # SSH/GPG agents handling.
 
+_ssh_gpg_agents_debug=0
+
 ssh-gpg-agents()
 {
-  if which keychain &>/dev/null
+  if [[ 0 -ne $_ssh_gpg_agents_debug ]]
   then
-    cmd=(keychain --inherit any)
-    mode='start'
-    agents=()
-    [[ ( -z "$SSH_CONNECTION" || -z "$SSH_AUTH_SOCK" ) && -f "$HOME/.ssh/noagent" ]] || agents+='ssh'
-    [[ -f "$HOME/.gnupg/noagent" ]] || agents+='gpg'
-    if [[ 0 -eq $#agents ]]
-    then
-      return 0
-    fi
-    cmd+=(--agents "${(j|,|)agents}")
-    if [[ 'x-k' = "x$1" ]]
-    then
-      mode='stop'
-      cmd+=(--stop mine)
-    fi
-    "$cmd[@]"
-    code=$?
-    if [[ 'start' = "$mode" ]]
-    then
-      [[ -n "${agents[(ke)gpg]}" && -f "$HOME/.keychain/$HOST-sh-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
-      [[ -n "${agents[(ke)ssh]}" && -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
-    fi
-    return $code
-  else
+    echo "ssh-gpg-agents $@"
+  fi
+
+  if ! which keychain &>/dev/null
+  then
     echo 1>&2 'Keychain is not installed! SSH/GPG agents handling disabled.'
     return 255
   fi
+
+  local agents cmd mode
+  agents=()
+  mode='s'
+
+  while [[ 0 -ne $# ]]
+  do
+    case "$1" in
+      -a)
+        shift
+        agents=(${(s:,:)1})
+        ;;
+      -[krs])
+        mode="${1/-}"
+        ;;
+      *)
+        echo 1>&2 "ssh-gpg-agents: invalid option $1"
+        return 1
+        ;;
+    esac
+    shift
+  done
+
+  if [[ 0 -eq $#agents ]]
+  then
+    [[ -f "$HOME/.gnupg/noagent" ]] || agents+='gpg'
+    [[ -f "$HOME/.ssh/noagent" ]] || agents+='ssh'
+  fi
+  if [[ 0 -eq $#agents ]]
+  then
+    return 0
+  fi
+
+  for a in $agents
+  do
+
+    if [[ 1 -ne $#agents ]]
+    then
+      ssh-gpg-agents -a $a -$mode || return $?
+      continue
+    fi
+
+    cmd=(keychain --inherit any-once --agents $a)
+
+    case $a in
+      ssh|gpg)
+        ;;
+      *)
+        echo 1>&2 "ssh-gpg-agents: unsupported agent $a"
+        return 1
+        ;;
+    esac
+
+    case "$mode" in
+      r)
+        ssh-gpg-agents -a $a -k || return $?
+        ;;
+      k)
+        cmd+=(--stop mine)
+        ;;
+    esac
+
+    if [[ 0 -ne $_ssh_gpg_agents_debug ]]
+    then
+      echo "$cmd[@]"
+    fi
+    "$cmd[@]" || return $?
+
+    case "$mode" in
+      [rs])
+        case $a in
+          ssh)
+            [[ -f "$HOME/.keychain/$HOST-sh" ]] && . "$HOME/.keychain/$HOST-sh"
+            ;;
+          gpg)
+            [[ -f "$HOME/.keychain/$HOST-sh-gpg" ]] && . "$HOME/.keychain/$HOST-sh-gpg"
+            ;;
+        esac
+        ;;
+      k)
+        case $a in
+          ssh)
+            rm -f "$HOME/.keychain/$HOST-sh"
+            unset SSH_AUTH_SOCK SSH_AGENT_PID
+            ;;
+          gpg)
+            rm -f "$HOME/.keychain/$HOST-sh-gpg"
+            unset GPG_AGENT_INFO
+            ;;
+        esac
+        ;;
+    esac
+
+  done
 }
 
 ssh-add()
