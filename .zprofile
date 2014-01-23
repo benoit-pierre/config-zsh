@@ -190,13 +190,4 @@ export SUP_INDEX=xapian
 
 # }}}
 
-# Xterm. {{{
-
-if [[ -d "$HOME/progs/lib/terminfo" ]]
-then
-  export TERMINFO="$HOME/progs/lib/terminfo"
-fi
-
-# }}}
-
 # vim: fdm=marker foldlevel=0
