@@ -416,7 +416,12 @@ pkm-pac()
       _pkm-sudo-cmd pacman --remove --cascade --recursive "$@"
       ;;
     remove-auto)
-      pacman --query --deps --quiet --unrequired | _pkm-sudo-cmd xargs --no-run-if-empty pacman --remove --recursive
+      local -a packages
+      packages=( $(pacman --query --deps --quiet --unrequired) )
+      if [[ 0 -ne $#packages ]]
+      then
+        _pkm-sudo-cmd pacman --remove --recursive $packages
+      fi
       ;;
     search)
       _pkm-exec-cmd pacman --sync --search "$1"
