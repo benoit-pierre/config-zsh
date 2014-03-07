@@ -6,6 +6,6 @@
 /env/ruby
 /functions/_bzr
 /history
-/history-vim
+/history-*
 /log
 /profile

@@ -1,0 +1,65 @@
+
+_with_cmd=''
+_with_histfile=''
+
+_with-line-init()
+{
+  BUFFER="$_with_cmd"
+
+  zle end-of-line
+}
+
+_with-line-finish()
+{
+  case "$BUFFER" in
+    "$_with_cmd")
+      if [[ -n "$_with_histfile" ]]
+      then
+        fc -P
+      fi
+      zle -D zle-line-init
+      zle -D zle-line-finish
+      BUFFER=''
+      _with_cmd=''
+      _with_histfile=''
+      ;;
+    "$_with_cmd;"*)
+      BUFFER="${BUFFER[$#_with_cmd+2,-1]}"
+      ;;
+    *)
+      ;;
+  esac
+}
+
+_with-complete()
+{
+  _arguments \
+    '*::arguments: _normal'
+}
+
+with()
+{
+  if [[ 0 -eq $# || -n "$_with_cmd" ]]
+  then
+    return 1
+  fi
+
+  _with_cmd=''
+  for arg in $@
+  do
+    eval "_with_cmd+=${(qq)arg}\ "
+  done
+
+  _with_histfile="$HISTFILE"
+  if [[ -n "$HISTFILE" ]]
+  then
+    fc -p "$HISTFILE-$(echo -n "${_with_cmd[1,-2]}" | tr -c '[:alnum:].,+_-' _)"
+  fi
+
+  zle -N zle-line-init _with-line-init
+  zle -N zle-line-finish _with-line-finish
+}
+
+compdef _with-complete with
+
+# vim: ft=zsh foldmethod=marker foldlevel=0

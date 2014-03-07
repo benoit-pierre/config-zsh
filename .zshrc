@@ -323,6 +323,9 @@ pkm
 # SSH/GPG agents.
 ssh-gpg-agents
 
+# With helper.
+with
+
 # }}}
 
 if [[ -r "$ZDOTDIR/profile" ]]
