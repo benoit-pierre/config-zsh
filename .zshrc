@@ -48,6 +48,9 @@ zle -N vim-edit-command-output
 autoload -z vim-execute-command
 zle -N vim-execute-command
 
+# Report timing statistic for having run for more than 1 minute.
+export REPORTTIME=60
+
 # }}}
 
 # History. {{{
