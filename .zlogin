@@ -35,6 +35,7 @@ unset \
   LC_TELEPHONE \
   LC_TIME \
 
+export LANGUAGE='en_US:en_GB:en:C'
 export LC_ALL='en_US.UTF-8'
 
 # }}}
