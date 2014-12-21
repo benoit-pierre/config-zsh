@@ -40,11 +40,6 @@ zpath LD_LIBRARY_PATH "$HOME/progs/lib"
 
 export EDITOR='vim'
 
-# }}}
-
-# Grep. {{{
-
-export GREP_OPTIONS='--color'
 
 # }}}
 
