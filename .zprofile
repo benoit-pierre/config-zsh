@@ -36,10 +36,27 @@ zpath LD_LIBRARY_PATH "$HOME/progs/lib"
 
 # }}}
 
-# Editor. {{{
+# Editor/Pager. {{{
 
 export EDITOR='vim'
 
+for candidate in vimpager less more
+do
+  pager="`which $candidate 2>/dev/null`"
+  if [[ -n "$pager" ]]
+  then
+    export PAGER='vimpager'
+    break
+  fi
+done
+if [[ 'less' = "$PAGER" ]]
+then
+  export LESS='-F -X'
+fi
+if [[ 'vimpager' = "$PAGER" ]]
+then
+  export VLESS_OPT='-F -X'
+fi
 
 # }}}
 
