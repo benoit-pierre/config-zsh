@@ -3,5 +3,5 @@ emulate -L zsh
 
 autoload -Uz vim-edit-command-line
 
-vim-edit-command-line -E -c '%p | exe input("") | x'
+vim-edit-command-line -E -c 'try | %p | exe input("") | finally | x | endtry'
 
