@@ -132,6 +132,10 @@ then
   alias -g E='|vimpager --pipe-edit|'
 fi
 
+# For renaming multiple files.
+autoload zmv
+alias mmv='noglob zmv -W'
+
 # }}}
 
 # Useful functions. {{{
