@@ -320,19 +320,19 @@ pkm-apt()
       _pkm-sudo-cmd apt-get clean
       ;;
     find-file)
-      _pkm-exec-cmd apt-file search "$1"
+      _pkm-exec-cmd apt-file search -- "$1"
       ;;
     find-file-update)
       _pkm-sudo-cmd apt-file update
       ;;
     install)
-      _pkm-sudo-cmd apt-get --verbose-versions install "$@"
+      _pkm-sudo-cmd apt-get --verbose-versions install -- "$@"
       ;;
     install-file)
-      _pkm-sudo-cmd dpkg --install "$@"
+      _pkm-sudo-cmd dpkg --install -- "$@"
       ;;
     list)
-      _pkm-exec-cmd dpkg --listfiles "$@"
+      _pkm-exec-cmd dpkg --listfiles -- "$@"
       ;;
     list-big)
       _pkm-exec-cmd dpigs --human-readable --lines="${1:-$(($LINES-1))}" | tac
@@ -344,19 +344,19 @@ pkm-apt()
       else
         fmt='${db:Status-Abbrev} ${Package} ${Version}\n'
       fi
-      _pkm-exec-cmd dpkg-query --show --showformat="$fmt" "$@" | sed -n 's/^.i. //p'
+      _pkm-exec-cmd dpkg-query --show --showformat="$fmt" -- "$@" | sed -n 's/^.i. //p'
       ;;
     query)
-      _pkm-exec-cmd apt-cache show "$@"
+      _pkm-exec-cmd apt-cache show -- "$@"
       ;;
     remove)
-      _pkm-sudo-cmd apt-get --auto-remove remove "$@"
+      _pkm-sudo-cmd apt-get --auto-remove remove -- "$@"
       ;;
     remove-auto)
       _pkm-sudo-cmd apt-get autoremove
       ;;
     search)
-      _pkm-exec-cmd apt-cache search "$1"
+      _pkm-exec-cmd apt-cache search -- "$1"
       ;;
     update)
       _pkm-sudo-cmd apt-get update && _pkm-sudo-cmd apt-get --verbose-versions dist-upgrade
@@ -386,42 +386,42 @@ pkm-pac()
       _pkm-sudo-cmd pacman --sync --clean --clean
       ;;
     find-file)
-      _pkm-exec-cmd pkgfile --glob --verbose "*$1*"
+      _pkm-exec-cmd pkgfile --glob --verbose -- "*$1*"
       ;;
     find-file-update)
       _pkm-sudo-cmd pkgfile --update
       ;;
     install)
-      _pkm-sudo-cmd pacman --sync "$@"
+      _pkm-sudo-cmd pacman --sync -- "$@"
       ;;
     install-file)
-      _pkm-sudo-cmd pacman --upgrade "$@"
+      _pkm-sudo-cmd pacman --upgrade -- "$@"
       ;;
     list)
-      _pkm-exec-cmd pacman --query --list "$@"
+      _pkm-exec-cmd pacman --query --list -- "$@"
       ;;
     list-big)
       _pkm-exec-cmd pacsysclean | tail --lines="${1:-$(($LINES-1))}"
       ;;
     list-installed)
-      _pkm-exec-cmd pacman --query "$@"
+      _pkm-exec-cmd pacman --query -- "$@"
       ;;
     query)
-      _pkm-exec-cmd pacman --sync --info "$@"
+      _pkm-exec-cmd pacman --sync --info -- "$@"
       ;;
     remove)
-      _pkm-sudo-cmd pacman --remove --cascade --recursive "$@"
+      _pkm-sudo-cmd pacman --remove --cascade --recursive -- "$@"
       ;;
     remove-auto)
       local -a packages
       packages=( $(pacman --query --deps --quiet --unrequired) )
       if [[ 0 -ne $#packages ]]
       then
-        _pkm-sudo-cmd pacman --remove --recursive $packages
+        _pkm-sudo-cmd pacman --remove --recursive -- $packages
       fi
       ;;
     search)
-      _pkm-exec-cmd pacman --sync --search "$1"
+      _pkm-exec-cmd pacman --sync --search -- "$1"
       ;;
     update)
       _pkm-sudo-cmd pacman --sync --refresh --sysupgrade
