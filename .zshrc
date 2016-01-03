@@ -318,6 +318,39 @@ autoload promptinit && promptinit
 # Prompt theme.
 prompt bpierre
 
+# Show command line in reverse before execution for easier delimitation.
+if [[ "$TERM" != "dumb" ]]
+then
+  local -a escape
+  escape[1+$((##))]='␛'
+  escape[1+$((##\n))]='␊'
+  escape[1+$((##\r))]='␍'
+  escape[1+$((##\x00))]='␀'
+  escape[1+$((##\x01))]='␁'
+  escape[1+$((##\x02))]='␂'
+  escape[1+$((##\x03))]='␃'
+  escape[1+$((##\x04))]='␄'
+  escape[1+$((##\x05))]='␅'
+  escape[1+$((##\x06))]='␆'
+  escape[1+$((##\x07))]='␇'
+  escape[1+$((##\x08))]='␈'
+  escape[1+$((##\x09))]='␉'
+  escape[1+$((##\x0a))]='␊'
+  escape[1+$((##\x0b))]='␋'
+  escape[1+$((##\x0c))]='␌'
+  escape[1+$((##\x0d))]='␍'
+  escape[1+$((##\x0e))]='␎'
+  escape[1+$((##\x0f))]='␏'
+  preexec() {
+    local prompt="%*>" cmd="$1" columns=${COLUMNS:-80} col_esc="$bg[red]$fg[white]" col_def="$bg[white]$fg[black]"
+    cmd="${cmd//(#m)[[:cntrl:]]/$col_esc$escape[1+##$MATCH]$col_def}"
+    cmd="${cmd//(#m)[^[:cntrl:][:print:]]/$col_escx$((##$MATCH))$col_def}"
+    prompt="${(%)prompt}"
+    columns=$(($columns-2-$#prompt))
+    echo "$col_def$prompt ${(r:$columns:)cmd}$reset_color";
+  }
+fi
+
 # }}}
 
 # Load utility functions. {{{
