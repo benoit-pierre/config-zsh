@@ -340,7 +340,7 @@ pkm-apt()
     list-installed)
       if [[ -t 1 ]]
       then
-        fmt='${db:Status-Abbrev} [0;1m${Package} [1;32m${Version}[0m\n'
+        fmt='${db:Status-Abbrev} '"${bold_color}"'${Package}'"${reset_color} ${fg_bold[green]}"'${Version}'"${reset_color}"'\n'
       else
         fmt='${db:Status-Abbrev} ${Package} ${Version}\n'
       fi
