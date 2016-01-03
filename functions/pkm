@@ -26,8 +26,10 @@ _pkm_aliases=(           \
   if   install-file      \
   l    list              \
   lb   list-big          \
+  lf   list-file         \
   li   list-installed    \
   q    query             \
+  qf   query-file        \
   r    remove            \
   ra   remove-auto       \
   s    search            \
@@ -46,11 +48,13 @@ operations:
     ffu  find-file-update                  :  update repo files lists
     h    help                              :  show this help
     i    install             <package(s)>  :  install package(s)
-    if   install-file        <file(s)>     :  install package(s) from file(s)
-    l    list                <package(s)>  :  list package contents
+    if   install-file        <file(s)>     :  install package file(s)
+    l    list                <package(s)>  :  list package(s) contents
     lb   list-big            [count]       :  list big packages
+    lf   list-file           <file(s)>     :  list package file(s) contents
     li   list-installed                    :  list installed packages
     q    query               [package(s)]  :  query package information
+    qf   query-file          [file(s)]     :  query package file(s) information
     r    remove              [package(s)]  :  remove package
     ra   remove-auto                       :  remove unused packages
     s    search              [package(s)]  :  search for a package
@@ -105,7 +109,7 @@ _pkm-check-cmd()
       _pkm-help "$@"
       return $?
       ;;
-    install|install-file|list|query|remove)
+    install|install-file|list|list-file|query|query-file|remove)
       [[ $# -ge 1 ]]
       ;;
     list-big)
@@ -248,8 +252,10 @@ _pkm-complete()
       {if,install-file}':install package from file'
       {l,list}':list package contents'
       {lb,list-big}':list big packages'
+      {lf,list-file}':list package file contents'
       {li,list-installed}':list installed packages'
       {q,query}':query package information'
+      {qf,query-file}':query package file information'
       {r,remove}':remove package'
       {ra,remove-auto}':remove unused packages'
       {s,search}':search for a package'
@@ -278,7 +284,7 @@ _pkm-complete()
         install)
           cpl=all-packages
           ;;
-        install-file)
+        install-file|list-file|query-file)
           cpl=package-files
           ;;
         list|list-installed|query|remove)
@@ -337,6 +343,19 @@ pkm-apt()
     list-big)
       _pkm-exec-cmd dpigs --human-readable --lines="${1:-$(($LINES-1))}" | tac
       ;;
+    list-file)
+      for f in "$@"
+      do
+        name="$(dpkg-deb -f "$f" Package)"
+        if [[ -t 1 ]]
+        then
+          hdr="${bold_color}$name${reset_color}"
+        else
+          hdr="$name"
+        fi
+        _pkm-exec-cmd dpkg-deb --fsys-tarfile -- "$f" | tar tf - | sed "s,^\./,$hdr /,"
+      done
+      ;;
     list-installed)
       if [[ -t 1 ]]
       then
@@ -348,6 +367,12 @@ pkm-apt()
       ;;
     query)
       _pkm-exec-cmd apt-cache show -- "$@"
+      ;;
+    query-file)
+      for f in "$@"
+      do
+        _pkm-exec-cmd dpkg-deb --info -- "$f"
+      done
       ;;
     remove)
       _pkm-sudo-cmd apt-get --auto-remove remove -- "$@"
@@ -403,11 +428,17 @@ pkm-pac()
     list-big)
       _pkm-exec-cmd expac -H M "%-11m %-40n %-$(($COLUMNS-(11+1+40+1)))d" | sort -n | tail --lines="${1:-$(($LINES-1))}"
       ;;
+    list-file)
+      _pkm-exec-cmd pacman --query --list --file -- "$@"
+      ;;
     list-installed)
       _pkm-exec-cmd pacman --query -- "$@"
       ;;
     query)
       _pkm-exec-cmd pacman --sync --info -- "$@"
+      ;;
+    query-file)
+      _pkm-exec-cmd pacman --query --info --file -- "$@"
       ;;
     remove)
       _pkm-sudo-cmd pacman --remove --cascade --recursive -- "$@"
