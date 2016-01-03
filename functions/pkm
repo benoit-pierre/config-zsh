@@ -401,7 +401,7 @@ pkm-pac()
       _pkm-exec-cmd pacman --query --list -- "$@"
       ;;
     list-big)
-      _pkm-exec-cmd pacsysclean | tail --lines="${1:-$(($LINES-1))}"
+      _pkm-exec-cmd expac -H M "%-11m %-40n %-$(($COLUMNS-(11+1+40+1)))d" | sort -n | tail --lines="${1:-$(($LINES-1))}"
       ;;
     list-installed)
       _pkm-exec-cmd pacman --query -- "$@"
