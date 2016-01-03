@@ -68,11 +68,9 @@ zpath INFOPATH "$HOME/progs/share/info"
 
 # Man. {{{
 
-pager="`which vimpager 2>/dev/null`"
-
-if [[ -n "$pager" ]]
+if [[ 'vimpager' = "$PAGER" ]]
 then
-  export MANPAGER='vimpager --man'
+  export MANPAGER="$PAGER --man"
 fi
 
 typeset -U manpath
