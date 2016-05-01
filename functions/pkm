@@ -335,7 +335,7 @@ pkm-apt()
       _pkm-sudo-cmd apt-get --verbose-versions install -- "$@"
       ;;
     install-file)
-      _pkm-sudo-cmd dpkg --install -- "$@"
+      _pkm-sudo-cmd gdebi -- "$@"
       ;;
     list)
       _pkm-exec-cmd dpkg --listfiles -- "$@"
