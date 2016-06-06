@@ -89,28 +89,8 @@ zpath PKG_CONFIG_PATH "$HOME/progs/lib/pkgconfig"
 
 # Python. {{{
 
-python="`which python2`" || python=''
-
-if [[ -n "$python" ]]
-then
-  pythonenv="$ZDOTDIR/env/python"
-  if [[ ! -r "$pythonenv" || "$pythonenv" -ot "$python" ]]
-  then
-    pythonlib="$HOME/progs/lib/python$("$python" -V |& cut -b 8-10)/site-packages"
-
-    {
-      echo pythonlib=\'$pythonlib\'
-
-    } > "$pythonenv"
-
-    zcompile "$pythonenv"
-
-  fi
-
-  . "$pythonenv"
-
-  zpath PYTHONPATH "$pythonlib"
-fi
+# Force encoding to UTF-8.
+export PYTHONIOENCODING='UTF-8'
 
 # }}}
 
