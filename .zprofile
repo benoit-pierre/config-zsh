@@ -20,6 +20,8 @@ fi
 
 zpath PATH "$HOME/progs"/{sbin,bin}
 
+zpath PATH "$HOME/.local/bin"
+
 # }}}
 
 # Make sure environment directory exists. {{{
