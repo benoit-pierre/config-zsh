@@ -102,6 +102,13 @@ then
   alias gman="MANPAGER='$MANPAGER -g' man"
 fi
 
+# pager support
+if [[ "$MANPAGER" =~ '^vimpager\>' ]]
+then
+  alias :gp="PAGER='less -g'"
+  alias :np="PAGER=''"
+fi
+
 alias bs='bzr shell'
 alias d='du -xhc --max-depth=1 --exclude="./.?*"'
 alias ez='exec zsh'
