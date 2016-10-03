@@ -175,6 +175,49 @@ vmake()
   vim +"$cmd"
 }
 
+# tmux splitting support.
+if [[ -n "$TMUX" ]]
+then
+  tmux-split() {
+    local pre_cmd cmd post_cmd
+    pre_cmd=''
+    cmd=(tmux split-window)
+    post_cmd=''
+    while true
+    do
+      case "$1" in
+        -b)
+          shift
+          pre_cmd='print -P "%K{white}%F{black}${@:gs/%/%%}%b%f%k%s%u"'
+          cmd+=(-b -d)
+          post_cmd+='; print -P "%K{white}%F{black}${@:gs/%/%%} %B%F{white}%(?,%K{green} 0 ,%K{red} %? )%b%f%k%s%u"; tmux copy-mode -t "$TMUX_PANE"'
+          ;;
+        -h)
+          pre_cmd='print -P "%K{white}%F{black}${@:gs/%/%%}%b%f%k%s%u"'
+          post_cmd+='; read -rqs'
+          shift
+          ;;
+        --)
+          shift
+          break
+          ;;
+        -*)
+          echo 1>&2 "invalid option: $1"
+          return 1
+          ;;
+        *)
+          break
+          ;;
+      esac
+    done
+
+    "$cmd[@]" -- zsh -c "$pre_cmd"'; "$@"; '"$post_cmd" -- "${=aliases[$1]:-$1}" "$@[2,$]"
+  }
+  alias ':s'='tmux-split'
+  alias ':sb'='tmux-split -b -h'
+  alias ':sh'='tmux-split -h'
+fi
+
 # }}}
 
 # Expansion and globbing. {{{
