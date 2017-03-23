@@ -6,9 +6,12 @@ _pkm_dryrun=0
 _pkm_verbose=0
 _pkm_manager=''
 
-case "`lsb_release -i -s | tr A-Z a-z`" in
+case "$(sed -n 's/^ID=//p' /etc/os-release)" in
   arch)
     _pkm_manager='pac'
+    ;;
+  fedora)
+    _pkm_manager='dnf'
     ;;
   linuxmint|ubuntu)
     _pkm_manager='apt'
@@ -194,6 +197,52 @@ _pkm-complete()
       _pkm_complete_all_packages='_deb_packages avail'
       _pkm_complete_package_files='_path_files -g "*.deb(-.)"'
       _pkm_complete_installed_packages='_deb_packages installed'
+      ;;
+
+    pkm-dnf)
+
+      _dnf_available_packages_caching_policy() {
+        local -a oldp
+        # rebuild if cache is more than a week old
+        oldp=( "$1"(mw+1) )
+        (( $#oldp ))
+      }
+
+      _dnf_installed_packages_caching_policy() {
+        local -a oldp
+        # rebuild if cache is more than a day old
+        oldp=( "$1"(md+1) )
+        (( $#oldp ))
+      }
+
+
+      _dnf_packages_set() {
+        local dnf_packages="dnf_${1}_packages"
+        typeset -agU $dnf_packages
+        if ( [[ ${(P)#dnf_packages} -eq 0 ]] || _cache_invalid $dnf_packages ) &&
+          ! _retrieve_cache $dnf_packages;
+        then
+          set -A $dnf_packages $(dnf --cacheonly repoquery --"$1" --qf '%{name}')
+          _store_cache $dnf_packages $dnf_packages
+        fi
+      }
+
+      _dnf_available_packages() {
+        zstyle ":completion:${curcontext}:" cache-policy _dnf_available_packages_caching_policy
+        _dnf_packages_set available
+        _wanted modules expl 'Available package' compadd "$@" -a - dnf_available_packages
+      }
+
+      _dnf_installed_packages() {
+        zstyle ":completion:${curcontext}:" cache-policy _dnf_installed_packages_caching_policy
+        _dnf_packages_set installed
+        _wanted modules expl 'Installed package' compadd "$@" -a - dnf_installed_packages
+      }
+
+      _pkm_complete_all_packages='_dnf_available_packages'
+      _pkm_complete_package_files='_path_files -g "*.rpm(-.)"'
+      _pkm_complete_installed_packages='_dnf_installed_packages'
+
       ;;
 
     pkm-pac)
@@ -388,6 +437,76 @@ pkm-apt()
       ;;
     update-fast)
       _pkm-sudo-cmd apt-get --verbose-versions dist-upgrade
+      ;;
+    *)
+      return 1
+  esac
+}
+
+# }}}
+
+# DNF. {{{
+
+pkm-dnf()
+{
+  _pkm-check-cmd "$@" || return $?
+  shift
+
+  case "$_pkm_cmd" in
+    clean)
+      _pkm-sudo-cmd dnf --cacheonly clean packages
+      ;;
+    clean-all)
+      _pkm-sudo-cmd dnf --cacheonly clean all
+      ;;
+    find-file)
+      _pkm-exec-cmd dnf provides "*$1*"
+      ;;
+    find-file-update)
+      ;;
+    install)
+      _pkm-sudo-cmd dnf --cacheonly install "$@"
+      ;;
+    install-file)
+      _pkm-sudo-cmd dnf --cacheonly install "$@"
+      ;;
+    list)
+      _pkm-exec-cmd rpm -ql "$@"
+      ;;
+    list-big)
+      ;;
+    list-file)
+      _pkm-exec-cmd rpm -pql "$@"
+      ;;
+    list-installed)
+      if [[ -t 1 ]]
+      then
+        fmt="${bold_color}"'%{name}'"${reset_color} ${fg_bold[green]}"'%{version}'"${reset_color}"
+      else
+        fmt='%{name} %{version}'
+      fi
+      _pkm-exec-cmd dnf --cacheonly repoquery --installed --qf "$fmt"
+      ;;
+    query)
+      _pkm-exec-cmd rpm -qi "$@"
+      ;;
+    query-file)
+      _pkm-exec-cmd rpm -pqi "$@"
+      ;;
+    remove)
+      _pkm-sudo-cmd dnf --cacheonly remove "$@"
+      ;;
+    remove-auto)
+      _pkm-sudo-cmd dnf --cacheonly autoremove
+      ;;
+    search)
+      _pkm-exec-cmd dnf --cacheonly search "$1"
+      ;;
+    update)
+      _pkm-sudo-cmd dnf --refresh upgrade
+      ;;
+    update-fast)
+      _pkm-sudo-cmd dnf --cacheonly upgrade
       ;;
     *)
       return 1
