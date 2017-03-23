@@ -199,7 +199,7 @@ _pkm-complete()
     pkm-pac)
 
       _pacman_completions_all_packages() {
-        local -a cmd packages repositories packages_long
+        local -a packages repositories
 
         packages=( $(_call_program packages pacman -Sql) )
         typeset -U packages
