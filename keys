@@ -24,4 +24,5 @@ Escape       vi-cmd-mode                          -a
 C-f          vim-edit-command-line                -v -a
 C-x          vim-execute-command                  -v -a
 C-Enter      vim-edit-command-output              -v -a
+PageUp       tmux-history                         -v -a
 

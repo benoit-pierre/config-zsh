@@ -178,7 +178,8 @@ vmake()
 # tmux splitting support.
 if [[ -n "$TMUX" ]]
 then
-  tmux-split() {
+  tmux-split()
+  {
     local pre_cmd cmd post_cmd
     pre_cmd=''
     cmd=(tmux split-window)
@@ -216,6 +217,12 @@ then
   alias ':s'='tmux-split'
   alias ':sb'='tmux-split -b -h'
   alias ':sh'='tmux-split -h'
+
+  tmux-history()
+  {
+    tmux copy-mode -eu
+  }
+  zle -N tmux-history
 fi
 
 # }}}
