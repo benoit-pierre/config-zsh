@@ -530,10 +530,10 @@ pkm-pac()
       _pkm-sudo-cmd pacman --sync --clean --clean
       ;;
     find-file)
-      _pkm-exec-cmd pkgfile --glob --verbose -- "*$1*"
+      _pkm-exec-cmd pacman --files --search --regex -- "$1"
       ;;
     find-file-update)
-      _pkm-sudo-cmd pkgfile --update
+      _pkm-sudo-cmd pacman --files --refresh
       ;;
     install)
       _pkm-sudo-cmd pacman --sync -- "$@"
